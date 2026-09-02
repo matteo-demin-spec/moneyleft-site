@@ -3,79 +3,689 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MoneyLeft &middot; Assistenza</title>
+<title>MoneyLeft — Sai sempre quanto ti resta</title>
+<meta name="description" content="MoneyLeft parte dal tuo giorno di paga, non dal primo del mese: ti dice quanto ti resta davvero fino al prossimo stipendio. Rate, abbonamenti, budget e previsioni. Tutto sul tuo iPhone.">
+<meta name="theme-color" content="#080a14">
+<link rel="canonical" href="https://matteo-demin-spec.github.io/moneyleft-site/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="MoneyLeft — Sai sempre quanto ti resta">
+<meta property="og:description" content="Il ciclo parte dal tuo giorno di paga. Rate, abbonamenti, budget e previsioni, senza collegare il conto in banca.">
+<meta property="og:image" content="https://matteo-demin-spec.github.io/moneyleft-site/img/schermata-1.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
 <style>
-  :root{ --viola:#7C4DEF; --testo:#1c1e26; --grigio:#5b6070; --bordo:#e7e9ef; --sfondo:#f7f8fa; }
-  *{box-sizing:border-box;}
-  body{ margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    color:var(--testo); background:var(--sfondo); line-height:1.6; }
-  .wrap{ max-width:760px; margin:0 auto; padding:32px 20px 64px; }
-  header{ border-bottom:1px solid var(--bordo); padding-bottom:20px; margin-bottom:28px; }
-  h1{ font-size:1.9rem; margin:0 0 8px; }
-  .sub{ color:var(--grigio); margin:0 0 10px; }
-  .meta{ color:#9aa0ad; font-size:.85rem; }
-  a{ color:var(--viola); }
-  section{ margin:26px 0; }
-  h2{ font-size:1.15rem; margin:0 0 8px; }
-  p{ margin:8px 0; color:#3a3e4b; }
-  ul{ margin:8px 0; padding-left:20px; color:#3a3e4b; }
-  li{ margin:4px 0; }
-  .evidenza{ background:rgba(124,77,239,.09); border-radius:12px; padding:14px 16px; font-size:.95rem; margin-top:10px; }
-  nav.top{ margin-bottom:8px; font-size:.9rem; }
-  footer{ margin-top:40px; padding-top:16px; border-top:1px solid var(--bordo); color:#9aa0ad; font-size:.8rem; }
-  .hero{ text-align:center; padding:8px 0 4px; }
-  .card{ background:#fff; border:1px solid var(--bordo); border-radius:16px; padding:22px; margin:22px 0; }
-  .card h2{ margin:0 0 8px; }
-  .mail{ display:inline-block; margin-top:10px; background:var(--viola); color:#fff; text-decoration:none;
-    padding:12px 20px; border-radius:12px; font-weight:600; }
-  .faq h3{ font-size:1rem; margin:16px 0 4px; }
-  .faq p{ margin:2px 0 10px; }
-  .links{ display:flex; gap:18px; flex-wrap:wrap; margin-top:6px; }
+  :root{
+    --sfondo:#080a14;
+    --sfondo-2:#0d1020;
+    --pannello:rgba(255,255,255,.045);
+    --bordo:rgba(255,255,255,.09);
+    --testo:#f2f4fb;
+    --tenue:#9aa2bd;
+    --viola:#8b5cf6;
+    --azzurro:#3b82f6;
+    --menta:#34d399;
+    --ambra:#fbbf24;
+    --rosso:#f97316;
+    --raggio:22px;
+    --mw:1120px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--sfondo);
+    color:var(--testo);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+
+  .wrap{ max-width:var(--mw); margin:0 auto; padding:0 24px; }
+
+  /* ---------- aloni di sfondo ----------
+     Gradienti dipinti direttamente sul corpo, non tre riquadri fissi con
+     filter: blur(120px). Quelli costringevano il browser a ridisegnare tre
+     livelli sfocati a schermo intero a ogni scorrimento — pesante su telefono,
+     e sufficiente a far uscire nere le catture del pannello di anteprima. */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(760px 620px at 88% -8%, rgba(109,40,217,.42), transparent 62%),
+      radial-gradient(680px 560px at -12% 44%, rgba(29,78,216,.28), transparent 60%),
+      radial-gradient(620px 520px at 106% 104%, rgba(15,118,110,.22), transparent 60%);
+  }
+
+  /* ---------- barra ---------- */
+  header.barra{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:saturate(180%) blur(18px);
+    -webkit-backdrop-filter:saturate(180%) blur(18px);
+    background:rgba(8,10,20,.72);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease;
+  }
+  header.barra.staccata{ border-bottom-color:var(--bordo); }
+  .barra .wrap{ display:flex; align-items:center; gap:20px; height:66px; }
+  .marchio{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.02em; font-size:1.06rem; }
+  .segno{
+    width:30px; height:30px; border-radius:9px; display:grid; place-items:center;
+    background:linear-gradient(135deg,var(--viola),var(--azzurro));
+    font-size:.82rem; font-weight:900; color:#fff;
+  }
+  .marchio span.left{ background:linear-gradient(90deg,var(--viola),var(--azzurro));
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  nav.menu{ margin-left:auto; display:flex; gap:26px; font-size:.92rem; color:var(--tenue); }
+  nav.menu a:hover{ color:var(--testo); }
+  .barra .cta{ margin-left:8px; }
+
+  .cta{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:11px 20px; border-radius:13px; font-weight:700; font-size:.93rem;
+    background:linear-gradient(135deg,var(--viola),var(--azzurro));
+    color:#fff; border:0; cursor:default; white-space:nowrap;
+    box-shadow:0 10px 30px rgba(99,60,220,.35);
+  }
+  .cta.fantasma{
+    background:rgba(255,255,255,.06); border:1px solid var(--bordo); box-shadow:none; color:var(--testo);
+  }
+  .cta.fantasma:hover{ background:rgba(255,255,255,.1); }
+
+  /* ---------- apertura ---------- */
+  .apertura{ position:relative; z-index:1; padding:76px 0 40px; }
+  .apertura .wrap{ display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; }
+  .pastiglia{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:7px 14px; border-radius:999px; font-size:.78rem; font-weight:700; letter-spacing:.06em;
+    text-transform:uppercase; color:#cbb6ff;
+    background:rgba(139,92,246,.14); border:1px solid rgba(139,92,246,.3);
+  }
+  h1{
+    font-size:clamp(2.6rem,5.4vw,4.05rem); line-height:1.04; letter-spacing:-.035em;
+    font-weight:850; margin:22px 0 18px;
+  }
+  h1 em{
+    font-style:normal;
+    background:linear-gradient(100deg,var(--viola),var(--azzurro) 55%,var(--menta));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .occhiello{ color:var(--tenue); font-size:1.06rem; max-width:34em; margin:0 0 26px; }
+  .bottoni{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+  .nota-cta{ color:#7d859f; font-size:.82rem; margin-top:14px; }
+
+  .vetrina{ position:relative; display:grid; place-items:center; }
+  .vetrina img{
+    width:min(300px,78%); border-radius:30px;
+    box-shadow:0 40px 90px rgba(0,0,0,.62), 0 0 0 1px rgba(255,255,255,.07);
+  }
+  .vetrina .dietro{
+    position:absolute; width:min(250px,64%); right:2%; top:12%;
+    transform:rotate(7deg); opacity:.5; filter:blur(.4px); z-index:-1;
+  }
+
+  /* ---------- striscia di fatti ---------- */
+  .fatti{ position:relative; z-index:1; padding:26px 0 8px; }
+  .fatti .wrap{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .fatto{
+    background:var(--pannello); border:1px solid var(--bordo); border-radius:16px; padding:16px 18px;
+  }
+  .fatto b{ display:block; font-size:.95rem; margin-bottom:2px; }
+  .fatto span{ color:var(--tenue); font-size:.82rem; }
+
+  /* ---------- sezioni ---------- */
+  section{ position:relative; z-index:1; padding:78px 0; }
+  .etichetta{
+    font-size:.76rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+    background:linear-gradient(90deg,var(--viola),var(--azzurro));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  h2{ font-size:clamp(1.85rem,3.6vw,2.65rem); line-height:1.12; letter-spacing:-.03em; font-weight:830; margin:12px 0 14px; }
+  .sottotitolo{ color:var(--tenue); max-width:56ch; font-size:1.02rem; margin:0; }
+  .centro{ text-align:center; }
+  .centro .sottotitolo{ margin-inline:auto; }
+
+  .griglia{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px; }
+  .carta{
+    background:var(--pannello); border:1px solid var(--bordo); border-radius:var(--raggio);
+    padding:26px 24px; transition:transform .3s ease, border-color .3s ease, background .3s ease;
+  }
+  .carta:hover{ transform:translateY(-4px); border-color:rgba(139,92,246,.4); background:rgba(255,255,255,.07); }
+  .icona{
+    width:46px; height:46px; border-radius:14px; display:grid; place-items:center; font-size:1.35rem;
+    background:linear-gradient(135deg,rgba(139,92,246,.24),rgba(59,130,246,.2));
+    border:1px solid rgba(255,255,255,.09); margin-bottom:16px;
+  }
+  .carta h3{ font-size:1.08rem; margin:0 0 8px; letter-spacing:-.01em; }
+  .carta p{ color:var(--tenue); font-size:.93rem; margin:0 0 14px; }
+  .tag{
+    display:inline-block; font-size:.74rem; font-weight:700; padding:4px 11px; border-radius:999px;
+    color:#a7f3d0; background:rgba(52,211,153,.12); border:1px solid rgba(52,211,153,.25);
+  }
+
+  /* ---------- vetrina alternata ---------- */
+  .riga{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; margin-top:84px; }
+  .riga:nth-child(even) .testo{ order:2; }
+  .riga .foto{ display:grid; place-items:center; }
+  .riga .foto img{
+    width:min(280px,80%); border-radius:28px;
+    box-shadow:0 30px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06);
+  }
+  .riga h3{ font-size:clamp(1.4rem,2.6vw,1.95rem); letter-spacing:-.025em; margin:12px 0 12px; line-height:1.16; }
+  .riga p{ color:var(--tenue); margin:0; }
+  .elenco{ list-style:none; padding:0; margin:18px 0 0; }
+  .elenco li{ color:var(--tenue); font-size:.94rem; padding-left:26px; position:relative; margin:8px 0; }
+  .elenco li::before{
+    content:""; position:absolute; left:0; top:.55em; width:14px; height:8px;
+    border-left:2px solid var(--menta); border-bottom:2px solid var(--menta);
+    transform:rotate(-45deg);
+  }
+
+  /* ---------- prezzi ---------- */
+  .prezzi{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; margin-top:46px; max-width:860px; margin-inline:auto; }
+  .piano{
+    background:var(--pannello); border:1px solid var(--bordo); border-radius:26px; padding:32px 28px;
+    display:flex; flex-direction:column;
+  }
+  .piano.evidenza{
+    border-color:rgba(139,92,246,.5);
+    background:linear-gradient(180deg,rgba(139,92,246,.12),rgba(59,130,246,.05));
+    position:relative;
+  }
+  .piano .nome{ font-size:.78rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--tenue); }
+  .piano .cifra{ font-size:2.5rem; font-weight:850; letter-spacing:-.03em; margin:10px 0 2px; }
+  .piano .cifra.piccola{ font-size:1.65rem; }
+  .piano .periodo{ color:var(--tenue); font-size:.9rem; margin-bottom:22px; }
+  .piano ul{ list-style:none; padding:0; margin:0 0 4px; flex:1; }
+  .piano li{ color:var(--tenue); font-size:.92rem; padding-left:24px; position:relative; margin:9px 0; }
+  .piano li::before{ content:"+"; position:absolute; left:4px; color:var(--menta); font-weight:800; }
+  .piano.base li::before{ content:"•"; color:var(--tenue); }
+  .distintivo{
+    position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+    background:linear-gradient(135deg,var(--viola),var(--azzurro)); color:#fff;
+    font-size:.7rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase;
+    padding:6px 14px; border-radius:999px; white-space:nowrap;
+  }
+  .promessa{
+    margin:34px auto 0; max-width:720px; text-align:center; color:var(--tenue); font-size:.9rem;
+    background:rgba(52,211,153,.07); border:1px solid rgba(52,211,153,.18);
+    border-radius:16px; padding:16px 20px;
+  }
+
+  /* ---------- domande ---------- */
+  .domande{ max-width:760px; margin:44px auto 0; }
+  details{
+    background:var(--pannello); border:1px solid var(--bordo); border-radius:16px;
+    padding:0 20px; margin-bottom:12px; transition:border-color .25s ease;
+  }
+  details[open]{ border-color:rgba(139,92,246,.35); }
+  summary{
+    cursor:pointer; list-style:none; padding:18px 0; font-weight:650; font-size:1rem;
+    display:flex; align-items:center; gap:14px;
+  }
+  summary::-webkit-details-marker{ display:none; }
+  summary::after{
+    content:"+"; margin-left:auto; color:var(--viola); font-size:1.5rem; font-weight:400;
+    line-height:1; transition:transform .25s ease;
+  }
+  details[open] summary::after{ transform:rotate(45deg); }
+  details p{ color:var(--tenue); font-size:.94rem; margin:0 0 20px; padding-right:34px; }
+
+  /* ---------- chiusura ---------- */
+  .chiusura .wrap{
+    background:linear-gradient(135deg,rgba(139,92,246,.16),rgba(59,130,246,.09));
+    border:1px solid rgba(139,92,246,.28); border-radius:32px; padding:56px 32px; text-align:center;
+  }
+
+  footer{ position:relative; z-index:1; border-top:1px solid var(--bordo); padding:44px 0 56px; }
+  footer .wrap{ display:flex; flex-wrap:wrap; gap:24px; align-items:center; }
+  footer .legami{ margin-left:auto; display:flex; flex-wrap:wrap; gap:22px; font-size:.9rem; color:var(--tenue); }
+  footer .legami a:hover{ color:var(--testo); }
+  footer .fine{ width:100%; color:#6b7391; font-size:.8rem; padding-top:8px; }
+
+  /* ---------- comparsa ----------
+     Nascosto solo se il JS e' vivo e ha messo la classe sull'elemento radice.
+     Al contrario (nascosto di partenza, mostrato dal JS) bastava un errore di
+     script, o un browser che blocca IntersectionObserver, perche' tutta la
+     pagina sotto l'apertura restasse invisibile. */
+  html.js .compare{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+  html.js .compare.vista{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce){
+    html.js .compare{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ---------- schermi stretti ---------- */
+  @media (max-width:900px){
+    .apertura .wrap{ grid-template-columns:1fr; gap:36px; }
+    .vetrina .dietro{ display:none; }
+    .fatti .wrap{ grid-template-columns:repeat(2,1fr); }
+    .griglia{ grid-template-columns:1fr 1fr; }
+    .riga{ grid-template-columns:1fr; gap:32px; margin-top:64px; }
+    .riga:nth-child(even) .testo{ order:0; }
+    nav.menu{ display:none; }
+  }
+  @media (max-width:620px){
+    section{ padding:56px 0; }
+    /* Sul telefono l'apertura era altissima: titolo grande, paragrafo lungo e
+       due bottoni spingevano la schermata dell'app sotto due schermate di
+       scorrimento. Qui si stringe tutto quel blocco. */
+    .apertura{ padding:34px 0 18px; }
+    h1{ font-size:clamp(2.15rem,8.4vw,2.7rem); margin:16px 0 14px; }
+    .occhiello{ font-size:.97rem; margin-bottom:20px; }
+    .bottoni{ gap:10px; }
+    .barra .wrap{ height:58px; gap:12px; }
+    .barra .cta{ padding:9px 14px; font-size:.82rem; }
+    .griglia{ grid-template-columns:1fr; }
+    .prezzi{ grid-template-columns:1fr; }
+    .fatti .wrap{ grid-template-columns:1fr; }
+    .chiusura .wrap{ padding:40px 22px; border-radius:24px; }
+    footer .legami{ margin-left:0; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
+<script>if("IntersectionObserver" in window){document.documentElement.className+=" js";}</script>
 
-  <header class="hero">
-    <h1>MoneyLeft</h1>
-    <p class="sub">Sai sempre quanto ti resta, fino al prossimo stipendio.<br>Assistenza e documenti.</p>
-  </header>
-  <div class="card">
-    <h2>Hai bisogno di aiuto?</h2>
-    <p>Scrivimi: rispondo personalmente, di solito entro un paio di giorni. Indica il modello di iPhone e la versione di MoneyLeft (la trovi in Impostazioni &rsaquo; Informazioni).</p>
-    <a class="mail" href="mailto:matteo.de.min@outlook.it?subject=Assistenza%20MoneyLeft">Scrivi a matteo.de.min@outlook.it</a>
+<header class="barra" id="barra">
+  <div class="wrap">
+    <a class="marchio" href="./">
+      <span class="segno">ML</span>
+      <span>Money<span class="left">Left</span></span>
+    </a>
+    <nav class="menu">
+      <a href="#funzioni">Funzionalità</a>
+      <a href="#app">L'app</a>
+      <a href="#prezzi">Prezzi</a>
+      <a href="#domande">Domande</a>
+      <a href="assistenza.html">Assistenza</a>
+    </nav>
+    <span class="cta">Presto su App Store</span>
   </div>
+</header>
 
-  <div class="card faq">
-    <h2>Domande frequenti</h2>
-
-    <h3>Devo creare un account per usare l'app?</h3>
-    <p>No. MoneyLeft funziona per intero sul tuo iPhone, senza registrazione. L'account serve solo se vuoi ritrovare gli stessi dati su pi&ugrave; dispositivi.</p>
-
-    <h3>Dove finiscono i miei dati?</h3>
-    <p>Restano sul tuo dispositivo, in un file protetto dalla cifratura di iOS. Lasciano il telefono solo se attivi tu la sincronizzazione, oppure quando esporti un backup dove decidi tu.</p>
-
-    <h3>Ho cambiato telefono: come recupero tutto?</h3>
-    <p>Se avevi attivato la sincronizzazione, accedi con lo stesso account e i dati tornano da soli. Altrimenti serve un backup esportato: Impostazioni &rsaquo; I tuoi dati &rsaquo; Esporta un backup completo.</p>
-
-    <h3>Come disdico MoneyLeft Pro?</h3>
-    <p>Dalle impostazioni del tuo ID Apple, oppure dal pulsante "Gestisci abbonamento" dentro l'app. Se l'abbonamento finisce, i tuoi dati restano intatti: si disattivano solo le funzioni Pro.</p>
-
-    <h3>Ho perso dei dati / l'app mi sembra vuota</h3>
-    <p>Non cancellare nulla e scrivimi subito: se hai un backup o la sincronizzazione attiva si recupera quasi sempre.</p>
-
-    <h3>Le previsioni sono consulenza finanziaria?</h3>
-    <p>No. Sono calcoli statistici sui tuoi numeri, fatti sul dispositivo. Le decisioni sui tuoi soldi restano tue.</p>
-  </div>
-
-  <div class="card">
-    <h2>Documenti</h2>
-    <div class="links">
-      <a href="privacy.html">Informativa privacy</a>
-      <a href="termini.html">Termini di servizio</a>
+<!-- ============================ APERTURA ============================ -->
+<div class="apertura">
+  <div class="wrap">
+    <div>
+      <span class="pastiglia">iPhone e iPad · in italiano</span>
+      <h1>Sai sempre <em>quanto ti resta</em>, fino al prossimo stipendio.</h1>
+      <p class="occhiello">
+        Il mese della banca inizia il primo. Il tuo inizia il giorno in cui ti pagano.
+        MoneyLeft calcola tutto sul <strong>tuo</strong> ciclo: cosa hai già speso, cosa
+        sta per essere addebitato e quanto ti resta davvero da qui alla prossima paga.
+      </p>
+      <div class="bottoni">
+        <span class="cta">Presto su App Store</span>
+        <a class="cta fantasma" href="#funzioni">Guarda com'è fatta</a>
+      </div>
+      <p class="nota-cta">Nessun collegamento al conto in banca. Nessun account obbligatorio.</p>
+    </div>
+    <div class="vetrina">
+      <img class="dietro" src="img/schermata-4.jpg" alt="">
+      <img src="img/schermata-1.jpg" alt="La schermata principale di MoneyLeft: patrimonio, quanto ti resta nel ciclo e quanto puoi spendere oggi.">
     </div>
   </div>
-  <footer>MoneyLeft &middot; Matteo De Min &middot; matteo.de.min@outlook.it</footer>
 </div>
+
+<!-- ============================ FATTI ============================ -->
+<div class="fatti">
+  <div class="wrap">
+    <div class="fatto compare"><b>Niente banca</b><span>Nessun collegamento al conto, nessuna credenziale bancaria.</span></div>
+    <div class="fatto compare"><b>Niente account</b><span>Funziona per intero senza registrarsi. L'account è solo per sincronizzare.</span></div>
+    <div class="fatto compare"><b>Niente pubblicità</b><span>Nessun dato venduto, nessun tracciamento pubblicitario.</span></div>
+    <div class="fatto compare"><b>I dati restano tuoi</b><span>Esportazione e backup completo gratuiti, per sempre.</span></div>
+  </div>
+</div>
+
+<!-- ============================ FUNZIONI ============================ -->
+<section id="funzioni">
+  <div class="wrap centro compare">
+    <span class="etichetta">Funzionalità</span>
+    <h2>Sei cose fatte bene.<br>Una domanda sola: quanto mi resta?</h2>
+    <p class="sottotitolo">
+      Tutto quello che serve per non arrivare al 25 del mese chiedendoti dove sono
+      finiti i soldi — senza fogli di calcolo e senza dare a nessuno le chiavi del conto.
+    </p>
+  </div>
+
+  <div class="wrap">
+    <div class="griglia">
+      <div class="carta compare">
+        <div class="icona">💶</div>
+        <h3>Quanto ti resta</h3>
+        <p>Una barra a tre segmenti: quello che hai già speso, quello che sta per
+           essere addebitato e quello che ti resta davvero. Aggiornata a ogni movimento.</p>
+        <span class="tag">Il numero che conta</span>
+      </div>
+      <div class="carta compare">
+        <div class="icona">📆</div>
+        <h3>Il ciclo dello stipendio</h3>
+        <p>Imposti il giorno in cui vieni pagato e l'app smette di ragionare dal primo
+           al trentuno. Budget giornaliero incluso: quanto puoi spendere oggi.</p>
+        <span class="tag">Dal tuo giorno di paga</span>
+      </div>
+      <div class="carta compare">
+        <div class="icona">🔁</div>
+        <h3>Rate e abbonamenti</h3>
+        <p>Si registrano da soli il giorno della scadenza, con il promemoria prima
+           dell'addebito. Se resti indietro, gli arretrati te li propone uno per uno.</p>
+        <span class="tag">Addebito automatico</span>
+      </div>
+      <div class="carta compare">
+        <div class="icona">🎯</div>
+        <h3>Budget e obiettivi</h3>
+        <p>Un tetto per categoria e gli obiettivi di risparmio, con l'avanzamento
+           sempre visibile. Nessun blocco: ti dice come stai andando, non ti sgrida.</p>
+        <span class="tag">Categoria per categoria</span>
+      </div>
+      <div class="carta compare">
+        <div class="icona">📊</div>
+        <h3>Resoconto e previsioni</h3>
+        <p>Il patrimonio degli ultimi dodici mesi e la previsione dei prossimi dodici,
+           da scorrere con il dito mese per mese. Con il momento più basso in chiaro.</p>
+        <span class="tag">Indietro e avanti</span>
+      </div>
+      <div class="carta compare">
+        <div class="icona">🔒</div>
+        <h3>Tutto sul tuo iPhone</h3>
+        <p>I dati stanno in un file sul dispositivo, protetto dalla cifratura di iOS
+           e da Face ID. Escono solo se attivi tu la sincronizzazione o esporti un backup.</p>
+        <span class="tag">Face ID incluso</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ L'APP ============================ -->
+<section id="app">
+  <div class="wrap centro compare">
+    <span class="etichetta">L'app in azione</span>
+    <h2>Guarda MoneyLeft al lavoro</h2>
+  </div>
+
+  <div class="wrap">
+    <div class="riga compare">
+      <div class="testo">
+        <span class="etichetta">Colpo d'occhio</span>
+        <h3>Il tuo denaro, tutto in una schermata</h3>
+        <p>Patrimonio in alto, il ciclo in corso al centro, e sotto il diario della
+           settimana. Non devi cercare niente: quello che ti serve sapere è la prima
+           cosa che vedi quando apri l'app.</p>
+        <ul class="elenco">
+          <li>Speso, in arrivo e disponibile in un'unica barra</li>
+          <li>Quanto puoi spendere oggi, ricalcolato ogni giorno</li>
+          <li>Occhio per nascondere gli importi quando non sei solo</li>
+        </ul>
+      </div>
+      <div class="foto"><img src="img/schermata-2.jpg" alt="Patrimonio, disponibilità e spesa nella schermata principale."></div>
+    </div>
+
+    <div class="riga compare">
+      <div class="testo">
+        <span class="etichetta">Ogni giorno</span>
+        <h3>Aggiungi una spesa in due tocchi</h3>
+        <p>Importo, categoria, fatto. Le spese si cercano per descrizione o categoria,
+           si filtrano per tipo, e quelle programmate si vedono in arrivo prima ancora
+           che il giorno arrivi.</p>
+        <ul class="elenco">
+          <li>Spese, entrate e trasferimenti fra conti</li>
+          <li>Sottocategorie sempre illimitate</li>
+          <li>Importazione da CSV se arrivi da un'altra app</li>
+        </ul>
+      </div>
+      <div class="foto"><img src="img/schermata-9.jpg" alt="L'inserimento di una spesa: interfaccia semplice e veloce."></div>
+    </div>
+
+    <div class="riga compare">
+      <div class="testo">
+        <span class="etichetta">Conti</span>
+        <h3>Banca, contanti, business e investimenti</h3>
+        <p>Ogni conto con la sua icona e il suo colore, e un patrimonio solo che li
+           somma tutti. Puoi escluderne uno dalle analisi senza cancellarlo: resta lì,
+           semplicemente non fa rumore nei calcoli.</p>
+        <ul class="elenco">
+          <li>Conti e movimenti illimitati, anche nel piano gratuito</li>
+          <li>Come è distribuito il patrimonio, in un grafico</li>
+          <li>Cambi il saldo e l'app registra la rettifica, non lo sovrascrive</li>
+        </ul>
+      </div>
+      <div class="foto"><img src="img/schermata-4.jpg" alt="Elenco dei conti con il patrimonio totale e la distribuzione."></div>
+    </div>
+
+    <div class="riga compare">
+      <div class="testo">
+        <span class="etichetta">Ricorrenti</span>
+        <h3>Rate e abbonamenti che si gestiscono da soli</h3>
+        <p>Il giorno della scadenza il movimento nasce da solo e il saldo si aggiorna,
+           con un avviso che dice cosa è stato registrato. Una rata finita esce
+           dall'elenco attivo e va fra quelle completate.</p>
+        <ul class="elenco">
+          <li>Promemoria prima dell'addebito</li>
+          <li>Paga in anticipo o rimanda di un mese, quando serve</li>
+          <li>Impegni fissi scalati da "quanto ti resta", prima che arrivino</li>
+        </ul>
+      </div>
+      <div class="foto"><img src="img/schermata-5.jpg" alt="Budget, rate, abbonamenti e obiettivi nella schermata Budget."></div>
+    </div>
+
+    <div class="riga compare">
+      <div class="testo">
+        <span class="etichetta">Analisi</span>
+        <h3>Dove vanno i soldi, senza girarci intorno</h3>
+        <p>La ripartizione per categoria, il confronto con il periodo prima e i segnali
+           letti sul ciclo in corso. Numeri sui tuoi dati, non consigli generici presi
+           da un manuale.</p>
+        <ul class="elenco">
+          <li>Entrate, uscite e risparmio del periodo</li>
+          <li>Cosa si ripete e cosa è stato una tantum</li>
+          <li>Resoconto su tre mesi, sei mesi, anno o tutto lo storico</li>
+        </ul>
+      </div>
+      <div class="foto"><img src="img/schermata-7.jpg" alt="Grafici della ripartizione delle spese per categoria."></div>
+    </div>
+
+    <div class="riga compare">
+      <div class="testo">
+        <span class="etichetta">Avanti nel tempo</span>
+        <h3>Dove arrivi se continui così</h3>
+        <p>Il patrimonio dei prossimi dodici mesi, calcolato su quanto spendi
+           tipicamente in ciascun mese dell'anno — non su una media piatta. Scorri con
+           il dito e vedi mese per mese quanto ti allontani da oggi.</p>
+        <ul class="elenco">
+          <li>Il momento più basso segnalato in anticipo</li>
+          <li>Proiezione a sei mesi con le rate che si chiudono</li>
+          <li>Anticipi e rimborsi tolti dal conto: non sono guadagni</li>
+        </ul>
+      </div>
+      <div class="foto"><img src="img/schermata-6.jpg" alt="Statistiche di entrate, uscite e risparmio nel resoconto."></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PREZZI ============================ -->
+<section id="prezzi">
+  <div class="wrap centro compare">
+    <span class="etichetta">Prezzi</span>
+    <h2>Gratis sul serio.<br>Pro se vuoi guardare avanti.</h2>
+    <p class="sottotitolo">
+      Il piano gratuito non è una prova a tempo: è l'app, completa, per sempre.
+      Pro aggiunge la lettura dei tuoi numeri nel tempo.
+    </p>
+  </div>
+
+  <div class="wrap">
+    <div class="prezzi">
+      <div class="piano base compare">
+        <span class="nome">Gratuito</span>
+        <div class="cifra">0 €</div>
+        <div class="periodo">per sempre, senza scadenza</div>
+        <ul>
+          <li>Conti e movimenti illimitati</li>
+          <li>Ciclo dello stipendio e barra a tre segmenti</li>
+          <li>Budget giornaliero: quanto puoi spendere oggi</li>
+          <li>Rate e abbonamenti con addebito automatico, fino a 3 aperti insieme</li>
+          <li>Fino a 4 categorie personalizzate nuove, sottocategorie illimitate</li>
+          <li>Diario settimanale e ripartizione per categoria</li>
+          <li>Resoconto del ciclo e del mese in corso</li>
+          <li>Patrimonio degli ultimi 12 mesi</li>
+          <li>Import CSV, esportazione e backup completo</li>
+          <li>Face ID</li>
+        </ul>
+      </div>
+
+      <div class="piano evidenza compare">
+        <span class="distintivo">MoneyLeft Pro</span>
+        <span class="nome">Pro</span>
+        <!-- PREZZI: quando i due prodotti sono approvati su App Store Connect,
+             sostituire le due righe qui sotto con la cifra vera, per esempio
+             <div class="cifra">2,99 &euro;</div>
+             <div class="periodo">al mese &middot; oppure 19,99 &euro; all'anno</div> -->
+        <div class="cifra piccola">Mensile o annuale</div>
+        <div class="periodo">Il prezzo lo vedi nell'app, prima di confermare.</div>
+        <ul>
+          <li>Tutto il piano gratuito</li>
+          <li>Previsione del patrimonio a 12 mesi</li>
+          <li>Proiezione a 6 mesi con gli impegni che calano</li>
+          <li>Analisi dei movimenti del ciclo in corso</li>
+          <li>Consigli di risparmio calcolati sui tuoi numeri</li>
+          <li>Cosa si ripete e cosa no, separato da solo</li>
+          <li>Resoconto oltre il mese: 3 mesi, 6 mesi, anno, 3 anni, tutto</li>
+          <li>Confronto con il periodo precedente, voce per voce</li>
+          <li>Sincronizzazione fra i tuoi dispositivi</li>
+          <li>Categorie, rate e abbonamenti senza limiti</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="promessa">
+      I tuoi dati non finiscono mai dietro un pagamento. L'esportazione e il backup
+      restano gratuiti per sempre, e superare un limite non blocca né cancella quello
+      che hai già creato: impedisce solo di crearne di nuovi finché non passi a Pro.
+      Se l'abbonamento scade, i dati restano intatti.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ DOMANDE ============================ -->
+<section id="domande">
+  <div class="wrap centro compare">
+    <span class="etichetta">FAQ</span>
+    <h2>Domande frequenti</h2>
+  </div>
+
+  <div class="wrap">
+    <div class="domande">
+      <details class="compare">
+        <summary>Devo collegare il mio conto in banca?</summary>
+        <p>No, e non si può nemmeno volendo. MoneyLeft non si collega a nessuna banca
+           e non chiede nessuna credenziale bancaria: i movimenti li inserisci tu, o li
+           importi da un file CSV. È una scelta, non un limite tecnico.</p>
+      </details>
+      <details class="compare">
+        <summary>Devo creare un account per usarla?</summary>
+        <p>No. L'app funziona per intero senza registrazione, e la Guida iniziale non
+           te lo chiede. L'account serve a una cosa sola: ritrovare gli stessi dati su
+           più dispositivi.</p>
+      </details>
+      <details class="compare">
+        <summary>Dove finiscono i miei dati?</summary>
+        <p>Restano sul tuo dispositivo, in un file protetto dalla cifratura di iOS.
+           Lasciano il telefono solo se attivi tu la sincronizzazione, oppure quando
+           esporti un backup dove decidi tu. Non vendiamo dati a nessuno e non c'è
+           nessun tracciamento pubblicitario.</p>
+      </details>
+      <details class="compare">
+        <summary>Posso esportare quello che ho inserito?</summary>
+        <p>Sì, e resta gratis per sempre anche senza Pro. Trovi l'esportazione e il
+           backup completo in Impostazioni, sotto "I tuoi dati". Il backup si può
+           ripristinare su un altro dispositivo.</p>
+      </details>
+      <details class="compare">
+        <summary>Cosa succede se l'abbonamento scade?</summary>
+        <p>Niente ai tuoi dati: restano tutti dove sono. Si disattivano solo le
+           funzioni Pro, inclusa la sincronizzazione automatica. Quello che avevi già
+           creato oltre i limiti del piano gratuito non viene cancellato.</p>
+      </details>
+      <details class="compare">
+        <summary>Funziona anche su iPad?</summary>
+        <p>Sì, su iPhone e su iPad, con la stessa app. Se accedi con lo stesso account
+           e hai Pro attivo, i dati sono gli stessi su entrambi.</p>
+      </details>
+      <details class="compare">
+        <summary>Il mese parte davvero dal mio giorno di paga?</summary>
+        <p>Sì, ed è il punto di tutta l'app. Imposti il giorno in cui vieni pagato e
+           ogni conto — quanto ti resta, il budget giornaliero, il resoconto del ciclo —
+           viene fatto da quel giorno al successivo, non dal primo del mese.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CHIUSURA ============================ -->
+<section class="chiusura">
+  <div class="wrap compare">
+    <h2>Smetti di scoprirlo a fine mese.</h2>
+    <p class="sottotitolo centro" style="margin:0 auto 26px;">
+      MoneyLeft ti dice quanto ti resta adesso, e quanto ti resterà fra un mese.
+    </p>
+    <span class="cta">Presto su App Store</span>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="marchio" href="./">
+      <span class="segno">ML</span>
+      <span>Money<span class="left">Left</span></span>
+    </a>
+    <nav class="legami">
+      <a href="assistenza.html">Assistenza</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="termini.html">Termini</a>
+      <a href="mailto:matteo.de.min@outlook.it?subject=MoneyLeft">Scrivici</a>
+    </nav>
+    <div class="fine">
+      MoneyLeft è sviluppata in Italia da Matteo De Min. App Store è un marchio di Apple Inc.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Bordo sotto la barra solo dopo che la pagina si è mossa.
+  var barra = document.getElementById('barra');
+  function aggiornaBarra(){ barra.classList.toggle('staccata', window.scrollY > 8); }
+  addEventListener('scroll', aggiornaBarra, { passive: true });
+  aggiornaBarra();
+
+  // Comparsa progressiva. Se l'API non c'è, si mostra tutto subito.
+  var daMostrare = document.querySelectorAll('.compare');
+  if ('IntersectionObserver' in window) {
+    var osservatore = new IntersectionObserver(function (voci) {
+      voci.forEach(function (voce) {
+        if (voce.isIntersecting) {
+          voce.target.classList.add('vista');
+          osservatore.unobserve(voce.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+    daMostrare.forEach(function (n, i) {
+      n.style.transitionDelay = Math.min(i % 4, 3) * 70 + 'ms';
+      osservatore.observe(n);
+    });
+    // Rete di sicurezza: qualunque cosa vada storta nell'osservatore, dopo tre
+    // secondi si mostra tutto lo stesso. Una pagina che vende un'app non puo'
+    // permettersi di restare vuota per un dettaglio di animazione.
+    setTimeout(function () {
+      daMostrare.forEach(function (n) { n.classList.add('vista'); });
+    }, 3000);
+  } else {
+    document.documentElement.classList.remove('js');
+  }
+</script>
+
 </body>
 </html>
