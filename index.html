@@ -60,6 +60,15 @@
       radial-gradient(620px 520px at 106% 104%, rgba(15,118,110,.22), transparent 60%);
   }
 
+  /* ---------- fascia di annuncio ---------- */
+  .annuncio{
+    position:relative; z-index:60; text-align:center;
+    background:linear-gradient(90deg,rgba(139,92,246,.22),rgba(59,130,246,.18));
+    border-bottom:1px solid rgba(139,92,246,.22);
+    color:#d7c9ff; font-size:.78rem; font-weight:700; letter-spacing:.07em;
+    text-transform:uppercase; padding:9px 16px;
+  }
+
   /* ---------- barra ---------- */
   header.barra{
     position:sticky; top:0; z-index:50;
@@ -290,6 +299,8 @@
 <body>
 <script>if("IntersectionObserver" in window){document.documentElement.className+=" js";}</script>
 
+<div class="annuncio">In italiano · per iPhone e iPad · presto su App Store</div>
+
 <header class="barra" id="barra">
   <div class="wrap">
     <a class="marchio" href="./">
@@ -311,7 +322,7 @@
 <div class="apertura">
   <div class="wrap">
     <div>
-      <span class="pastiglia">iPhone e iPad · in italiano</span>
+      <span class="pastiglia">Il tuo mese inizia quando ti pagano</span>
       <h1>Sai sempre <em>quanto ti resta</em>, fino al prossimo stipendio.</h1>
       <p class="occhiello">
         Il mese della banca inizia il primo. Il tuo inizia il giorno in cui ti pagano.
