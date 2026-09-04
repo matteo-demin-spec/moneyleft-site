@@ -6,12 +6,16 @@
 <title>MoneyLeft — Sai sempre quanto ti resta</title>
 <meta name="description" content="MoneyLeft parte dal tuo giorno di paga, non dal primo del mese: ti dice quanto ti resta davvero fino al prossimo stipendio. Rate, abbonamenti, budget e previsioni. Tutto sul tuo iPhone.">
 <meta name="theme-color" content="#080a14">
+<link rel="icon" type="image/png" sizes="32x32" href="img/icona-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="img/icona-96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/icona-180.png">
+
 <link rel="canonical" href="https://matteo-demin-spec.github.io/moneyleft-site/">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="MoneyLeft — Sai sempre quanto ti resta">
 <meta property="og:description" content="Il ciclo parte dal tuo giorno di paga. Rate, abbonamenti, budget e previsioni, senza collegare il conto in banca.">
-<meta property="og:image" content="https://matteo-demin-spec.github.io/moneyleft-site/img/schermata-1.jpg">
+<meta property="og:image" content="https://matteo-demin-spec.github.io/moneyleft-site/img/icona-512.png">
 <meta name="twitter:card" content="summary_large_image">
 
 <style>
@@ -81,10 +85,12 @@
   header.barra.staccata{ border-bottom-color:var(--bordo); }
   .barra .wrap{ display:flex; align-items:center; gap:20px; height:66px; }
   .marchio{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.02em; font-size:1.06rem; }
+  /* L'icona vera dell'app, non due lettere disegnate a mano: e' il segno che
+     la gente ritrovera' sull'App Store e sulla propria schermata Home, e non
+     ha senso presentarsi con qualcos'altro. */
   .segno{
-    width:30px; height:30px; border-radius:9px; display:grid; place-items:center;
-    background:linear-gradient(135deg,var(--viola),var(--azzurro));
-    font-size:.82rem; font-weight:900; color:#fff;
+    width:32px; height:32px; border-radius:9px; display:block;
+    box-shadow:0 2px 10px rgba(0,0,0,.35);
   }
   .marchio span.left{ background:linear-gradient(90deg,var(--viola),var(--azzurro));
     -webkit-background-clip:text; background-clip:text; color:transparent; }
@@ -107,6 +113,10 @@
   /* ---------- apertura ---------- */
   .apertura{ position:relative; z-index:1; padding:76px 0 40px; }
   .apertura .wrap{ display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; }
+  .icona-apertura{
+    width:72px; height:72px; border-radius:17px; margin-bottom:18px;
+    box-shadow:0 12px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.08);
+  }
   .pastiglia{
     display:inline-flex; align-items:center; gap:8px;
     padding:7px 14px; border-radius:999px; font-size:.78rem; font-weight:700; letter-spacing:.06em;
@@ -304,7 +314,7 @@
 <header class="barra" id="barra">
   <div class="wrap">
     <a class="marchio" href="./">
-      <span class="segno">ML</span>
+      <img class="segno" src="img/icona-96.png" alt="" width="32" height="32">
       <span>Money<span class="left">Left</span></span>
     </a>
     <nav class="menu">
@@ -322,6 +332,7 @@
 <div class="apertura">
   <div class="wrap">
     <div>
+      <img class="icona-apertura" src="img/icona-180.png" alt="Icona di MoneyLeft" width="72" height="72">
       <span class="pastiglia">Il tuo mese inizia quando ti pagano</span>
       <h1>Sai sempre <em>quanto ti resta</em>, fino al prossimo stipendio.</h1>
       <p class="occhiello">
@@ -651,7 +662,7 @@
 <footer>
   <div class="wrap">
     <a class="marchio" href="./">
-      <span class="segno">ML</span>
+      <img class="segno" src="img/icona-96.png" alt="" width="32" height="32">
       <span>Money<span class="left">Left</span></span>
     </a>
     <nav class="legami">
