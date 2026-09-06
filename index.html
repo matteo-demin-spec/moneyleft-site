@@ -21,6 +21,20 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <style>
+  /* Font serviti da questo sito, non da Google: una richiesta a fonts.googleapis.com
+     manderebbe l'IP di ogni visitatore a un terzo. Manrope al posto del solo stack di
+     sistema: senza una scelta tipografica il sito non ha identita' propria. */
+  @font-face{
+    font-family:"Manrope"; font-style:normal; font-weight:400 800; font-display:swap;
+    src:url("font/manrope-latin-ext.woff2") format("woff2");
+    unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  @font-face{
+    font-family:"Manrope"; font-style:normal; font-weight:400 800; font-display:swap;
+    src:url("font/manrope-latin.woff2") format("woff2");
+    unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
   :root{
     --sfondo:#080a14;
     --sfondo-2:#0d1020;
@@ -43,7 +57,7 @@
     margin:0;
     background:var(--sfondo);
     color:var(--testo);
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
@@ -94,16 +108,29 @@
     width:32px; height:32px; border-radius:9px; display:block;
     box-shadow:0 2px 10px rgba(0,0,0,.35);
   }
-  .marchio span.left{ background:linear-gradient(90deg,var(--viola),var(--azzurro));
-    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .marchio span.left{ color:var(--viola); }
   nav.menu{ margin-left:auto; display:flex; gap:26px; font-size:.92rem; color:var(--tenue); }
   nav.menu a:hover{ color:var(--testo); }
   .barra .cta{ margin-left:8px; }
 
+  .badge-store{
+    display:inline-flex; align-items:center; gap:12px;
+    background:#000; color:#fff; border-radius:14px; padding:10px 20px;
+    font-weight:500; white-space:nowrap; border:1px solid rgba(255,255,255,.14);
+    text-decoration:none;
+  }
+  .badge-store svg{ width:24px; height:24px; fill:#fff; flex:none; }
+  .badge-store .righe{ display:flex; flex-direction:column; line-height:1.15; text-align:left; }
+  .badge-store small{ font-size:.68rem; font-weight:400; opacity:.82; }
+  .badge-store b{ font-size:1rem; font-weight:700; }
+  .barra .badge-store{ margin-left:8px; padding:8px 16px; }
+  .barra .badge-store svg{ width:20px; height:20px; }
+  .barra .badge-store b{ font-size:.9rem; }
+
   .cta{
     display:inline-flex; align-items:center; gap:9px;
     padding:11px 20px; border-radius:13px; font-weight:700; font-size:.93rem;
-    background:linear-gradient(135deg,var(--viola),var(--azzurro));
+    background:var(--viola);
     color:#fff; border:0; cursor:default; white-space:nowrap;
     box-shadow:0 10px 30px rgba(99,60,220,.35);
   }
@@ -161,8 +188,7 @@
   section{ position:relative; z-index:1; padding:78px 0; }
   .etichetta{
     font-size:.76rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
-    background:linear-gradient(90deg,var(--viola),var(--azzurro));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
+    color:#a78bfa;
   }
   h2{ font-size:clamp(1.85rem,3.6vw,2.65rem); line-height:1.12; letter-spacing:-.03em; font-weight:830; margin:12px 0 14px; }
   .sottotitolo{ color:var(--tenue); max-width:56ch; font-size:1.02rem; margin:0; }
@@ -176,10 +202,11 @@
   }
   .carta:hover{ transform:translateY(-4px); border-color:rgba(139,92,246,.4); background:rgba(255,255,255,.07); }
   .icona{
-    width:46px; height:46px; border-radius:14px; display:grid; place-items:center; font-size:1.35rem;
-    background:linear-gradient(135deg,rgba(139,92,246,.24),rgba(59,130,246,.2));
+    width:46px; height:46px; border-radius:14px; display:grid; place-items:center;
+    background:rgba(139,92,246,.18);
     border:1px solid rgba(255,255,255,.09); margin-bottom:16px;
   }
+  .icona svg{ width:23px; height:23px; fill:none; stroke:#d7d2fb; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
   .carta h3{ font-size:1.08rem; margin:0 0 8px; letter-spacing:-.01em; }
   .carta p{ color:var(--tenue); font-size:.93rem; margin:0 0 14px; }
   .tag{
@@ -213,7 +240,7 @@
   }
   .piano.evidenza{
     border-color:rgba(139,92,246,.5);
-    background:linear-gradient(180deg,rgba(139,92,246,.12),rgba(59,130,246,.05));
+    background:rgba(139,92,246,.10);
     position:relative;
   }
   .piano .nome{ font-size:.78rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--tenue); }
@@ -226,7 +253,7 @@
   .piano.base li::before{ content:"•"; color:var(--tenue); }
   .distintivo{
     position:absolute; top:-12px; left:50%; transform:translateX(-50%);
-    background:linear-gradient(135deg,var(--viola),var(--azzurro)); color:#fff;
+    background:var(--viola); color:#fff;
     font-size:.7rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase;
     padding:6px 14px; border-radius:999px; white-space:nowrap;
   }
@@ -326,7 +353,7 @@
       <a href="#domande">Domande</a>
       <a href="assistenza.html">Assistenza</a>
     </nav>
-    <span class="cta">Presto su App Store</span>
+    <span class="badge-store"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 0 184.8 0 273.5c0 26.2 4.8 53.3 14.4 81.2 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.6zM256.6 93c31-36.8 28.2-70.3 27.3-82.4-27.4 1.6-59.1 18.7-77.2 39.7-19.9 22.6-31.6 50.5-29.1 81.9 29.6 2.3 56.7-12.9 79-39.2z"/></svg><span class="righe"><small>Presto disponibile su</small><b>App Store</b></span></span>
   </div>
 </header>
 
@@ -343,7 +370,7 @@
         sta per essere addebitato e quanto ti resta davvero da qui alla prossima paga.
       </p>
       <div class="bottoni">
-        <span class="cta">Presto su App Store</span>
+        <span class="badge-store"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 0 184.8 0 273.5c0 26.2 4.8 53.3 14.4 81.2 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.6zM256.6 93c31-36.8 28.2-70.3 27.3-82.4-27.4 1.6-59.1 18.7-77.2 39.7-19.9 22.6-31.6 50.5-29.1 81.9 29.6 2.3 56.7-12.9 79-39.2z"/></svg><span class="righe"><small>Presto disponibile su</small><b>App Store</b></span></span>
         <a class="cta fantasma" href="#funzioni">Guarda com'è fatta</a>
       </div>
       <p class="nota-cta">Nessun collegamento al conto in banca. Nessun account obbligatorio.</p>
@@ -379,42 +406,42 @@
   <div class="wrap">
     <div class="griglia">
       <div class="carta compare">
-        <div class="icona">💶</div>
+        <div class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h13v3"/><path d="M3 8v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6H6a3 3 0 0 1-3-3z"/><path d="M17 13.5h.01"/></svg></div>
         <h3>Quanto ti resta</h3>
         <p>Una barra a tre segmenti: quello che hai già speso, quello che sta per
            essere addebitato e quello che ti resta davvero. Aggiornata a ogni movimento.</p>
         <span class="tag">Il numero che conta</span>
       </div>
       <div class="carta compare">
-        <div class="icona">📆</div>
+        <div class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div>
         <h3>Il ciclo dello stipendio</h3>
         <p>Imposti il giorno in cui vieni pagato e l'app smette di ragionare dal primo
            al trentuno. Budget giornaliero incluso: quanto puoi spendere oggi.</p>
         <span class="tag">Dal tuo giorno di paga</span>
       </div>
       <div class="carta compare">
-        <div class="icona">🔁</div>
+        <div class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8M20 4v4h-4"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 16M4 20v-4h4"/></svg></div>
         <h3>Rate e abbonamenti</h3>
         <p>Si registrano da soli il giorno della scadenza, con il promemoria prima
            dell'addebito. Se resti indietro, gli arretrati te li propone uno per uno.</p>
         <span class="tag">Addebito automatico</span>
       </div>
       <div class="carta compare">
-        <div class="icona">🎯</div>
+        <div class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><path d="M12 11.9h.01"/></svg></div>
         <h3>Budget e obiettivi</h3>
         <p>Un tetto per categoria e gli obiettivi di risparmio, con l'avanzamento
            sempre visibile. Nessun blocco: ti dice come stai andando, non ti sgrida.</p>
         <span class="tag">Categoria per categoria</span>
       </div>
       <div class="carta compare">
-        <div class="icona">📊</div>
+        <div class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
         <h3>Resoconto e previsioni</h3>
         <p>Il patrimonio degli ultimi dodici mesi e la previsione dei prossimi dodici,
            da scorrere con il dito mese per mese. Con il momento più basso in chiaro.</p>
         <span class="tag">Indietro e avanti</span>
       </div>
       <div class="carta compare">
-        <div class="icona">🔒</div>
+        <div class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
         <h3>Tutto sul tuo iPhone</h3>
         <p>I dati stanno in un file sul dispositivo, protetto dalla cifratura di iOS
            e da Face ID. Escono solo se attivi tu la sincronizzazione o esporti un backup.</p>
@@ -445,7 +472,7 @@
           <li>Occhio per nascondere gli importi quando non sei solo</li>
         </ul>
       </div>
-      <div class="foto"><img src="img/schermata-2.jpg" alt="Patrimonio, disponibilità e spesa nella schermata principale."></div>
+      <div class="foto"><img src="img/schermata-2.jpg" alt="Patrimonio, disponibilità e spesa nella schermata principale." loading="lazy"></div>
     </div>
 
     <div class="riga compare">
@@ -461,7 +488,7 @@
           <li>Importazione da CSV se arrivi da un'altra app</li>
         </ul>
       </div>
-      <div class="foto"><img src="img/schermata-9.jpg" alt="L'inserimento di una spesa: interfaccia semplice e veloce."></div>
+      <div class="foto"><img src="img/schermata-9.jpg" alt="L'inserimento di una spesa: interfaccia semplice e veloce." loading="lazy"></div>
     </div>
 
     <div class="riga compare">
@@ -477,7 +504,7 @@
           <li>Cambi il saldo e l'app registra la rettifica, non lo sovrascrive</li>
         </ul>
       </div>
-      <div class="foto"><img src="img/schermata-4.jpg" alt="Elenco dei conti con il patrimonio totale e la distribuzione."></div>
+      <div class="foto"><img src="img/schermata-4.jpg" alt="Elenco dei conti con il patrimonio totale e la distribuzione." loading="lazy"></div>
     </div>
 
     <div class="riga compare">
@@ -493,7 +520,7 @@
           <li>Impegni fissi scalati da "quanto ti resta", prima che arrivino</li>
         </ul>
       </div>
-      <div class="foto"><img src="img/schermata-5.jpg" alt="Budget, rate, abbonamenti e obiettivi nella schermata Budget."></div>
+      <div class="foto"><img src="img/schermata-5.jpg" alt="Budget, rate, abbonamenti e obiettivi nella schermata Budget." loading="lazy"></div>
     </div>
 
     <div class="riga compare">
@@ -509,7 +536,7 @@
           <li>Resoconto su tre mesi, sei mesi, anno o tutto lo storico</li>
         </ul>
       </div>
-      <div class="foto"><img src="img/schermata-7.jpg" alt="Grafici della ripartizione delle spese per categoria."></div>
+      <div class="foto"><img src="img/schermata-7.jpg" alt="Grafici della ripartizione delle spese per categoria." loading="lazy"></div>
     </div>
 
     <div class="riga compare">
@@ -525,7 +552,7 @@
           <li>Anticipi e rimborsi tolti dal conto: non sono guadagni</li>
         </ul>
       </div>
-      <div class="foto"><img src="img/schermata-6.jpg" alt="Statistiche di entrate, uscite e risparmio nel resoconto."></div>
+      <div class="foto"><img src="img/schermata-6.jpg" alt="Statistiche di entrate, uscite e risparmio nel resoconto." loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -657,7 +684,7 @@
     <p class="sottotitolo centro" style="margin:0 auto 26px;">
       MoneyLeft ti dice quanto ti resta adesso, e quanto ti resterà fra un mese.
     </p>
-    <span class="cta">Presto su App Store</span>
+    <span class="badge-store"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 0 184.8 0 273.5c0 26.2 4.8 53.3 14.4 81.2 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.6zM256.6 93c31-36.8 28.2-70.3 27.3-82.4-27.4 1.6-59.1 18.7-77.2 39.7-19.9 22.6-31.6 50.5-29.1 81.9 29.6 2.3 56.7-12.9 79-39.2z"/></svg><span class="righe"><small>Presto disponibile su</small><b>App Store</b></span></span>
   </div>
 </section>
 
@@ -710,6 +737,25 @@
   } else {
     document.documentElement.classList.remove('js');
   }
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "MoneyLeft",
+  "operatingSystem": "iOS",
+  "applicationCategory": "FinanceApplication",
+  "inLanguage": "it-IT",
+  "description": "App di finanze personali per iPhone che parte dal tuo giorno di paga invece che dal primo del mese: ti dice quanto ti resta davvero fino al prossimo stipendio. Rate, abbonamenti, budget e previsioni, senza collegare il conto in banca.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR",
+    "description": "Download gratuito. Funzioni Pro facoltative con abbonamento."
+  },
+  "author": { "@type": "Person", "name": "Matteo De Min" }
+}
 </script>
 
 </body>
