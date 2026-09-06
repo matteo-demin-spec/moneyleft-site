@@ -108,7 +108,8 @@
     width:32px; height:32px; border-radius:9px; display:block;
     box-shadow:0 2px 10px rgba(0,0,0,.35);
   }
-  .marchio span.left{ color:var(--viola); }
+  .marchio span.left{ background:linear-gradient(90deg,var(--viola),var(--azzurro));
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
   nav.menu{ margin-left:auto; display:flex; gap:26px; font-size:.92rem; color:var(--tenue); }
   nav.menu a:hover{ color:var(--testo); }
   .barra .cta{ margin-left:8px; }
@@ -246,6 +247,16 @@
   .piano .nome{ font-size:.78rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--tenue); }
   .piano .cifra{ font-size:2.5rem; font-weight:850; letter-spacing:-.03em; margin:10px 0 2px; }
   .piano .cifra .anno{ font-size:1.05rem; font-weight:700; color:var(--tenue); letter-spacing:0; }
+  .piano .listino{ list-style:none; margin:14px 0 20px; padding:0; border:1px solid var(--bordo); border-radius:14px; overflow:hidden; }
+  .piano .listino li{ display:flex; justify-content:space-between; align-items:center; gap:14px;
+    padding:12px 15px; border-bottom:1px solid var(--bordo); margin:0; color:var(--testo); }
+  .piano .listino li:last-child{ border-bottom:0; }
+  .piano .listino li::before{ content:none; }
+  .piano .listino .voce{ display:flex; flex-direction:column; gap:2px; font-weight:700; font-size:.95rem; }
+  .piano .listino .voce small{ color:var(--tenue); font-size:.79rem; font-weight:500; }
+  .piano .listino .val{ font-weight:800; font-size:1.05rem; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .piano .listino .val small{ color:var(--tenue); font-size:.76rem; font-weight:600; }
+  .piano .listino .scelto{ background:rgba(122,85,204,.14); }
   .piano .periodo{ color:var(--tenue); font-size:.9rem; margin-bottom:22px; }
   .piano ul{ list-style:none; padding:0; margin:0 0 4px; flex:1; }
   .piano li{ color:var(--tenue); font-size:.92rem; padding-left:24px; position:relative; margin:9px 0; }
@@ -591,10 +602,20 @@
       <div class="piano evidenza compare">
         <span class="distintivo">MoneyLeft Pro</span>
         <span class="nome">Pro</span>
-        <div class="cifra">24,99 &euro;<span class="anno">/anno</span></div>
+        <ul class="listino">
+          <li>
+            <span class="voce">Mensile</span>
+            <span class="val">2,99 <small>&euro;/mese</small></span>
+          </li>
+          <li class="scelto">
+            <span class="voce">Annuale<small>Prima settimana gratis</small></span>
+            <span class="val">24,99 <small>&euro;/anno</small></span>
+          </li>
+        </ul>
         <div class="periodo">
-          Prima settimana gratis &middot; oppure 2,99 &euro; al mese.<br>
-          Con l'annuale risparmi il 30% rispetto a dodici mesi singoli.
+          Con l'annuale risparmi il 30% rispetto a dodici mesi singoli. La prova
+          gratuita &egrave; sull'annuale; il mensile parte subito a pagamento.
+          Si rinnovano da soli salvo disdetta, che gestisci da Apple.
         </div>
         <ul>
           <li>Tutto il piano gratuito</li>
