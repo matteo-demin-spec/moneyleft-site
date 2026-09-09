@@ -97,7 +97,15 @@
     <p>Puoi tornare in MoneyLeft e accedere con la tua email e la password che hai scelto.</p>
   </div>
 
-  <!-- 4. Link scaduto, gia' usato, o aperto senza link. -->
+  <!-- 4. Link di un'altra app: stesso account Supabase, progetto diverso. -->
+  <div class="card" id="altraapp" hidden>
+    <h2>Questo link non &egrave; di MoneyLeft</h2>
+    <p>Arriva da un&rsquo;altra app, e da qui non si pu&ograve; usare: ogni app ha il suo archivio
+       separato, e la password di una non apre l&rsquo;altra.</p>
+    <p>Riapri l&rsquo;app da cui hai chiesto la reimpostazione e riprova da l&igrave;.</p>
+  </div>
+
+  <!-- 5. Link scaduto, gia' usato, o aperto senza link. -->
   <div class="card" id="scaduto" hidden>
     <h2 id="scaduto-titolo">Questo link non vale piu&rsquo;</h2>
     <p id="scaduto-testo">I link per reimpostare la password durano un&rsquo;ora e si possono usare una volta sola.</p>
@@ -152,6 +160,32 @@
 
   var accesso = campo.access_token || null;
 
+  // Da quale progetto Supabase arriva questo gettone?
+  //
+  // Le app di Matteo stanno sullo stesso account Supabase ma in progetti
+  // separati, e il "Site URL" — cioe' dove atterra il link dell'email — si
+  // imposta per progetto: basta averlo davanti a quello sbagliato nel
+  // pannello per mandare gli utenti di un'app sulla pagina di un'altra
+  // (§ successo davvero, con ShiftPro che finiva qui).
+  //
+  // Il gettone e' un JWT: il suo `iss` dice da quale progetto viene. Qui non
+  // si verifica niente — la firma la controlla il server — si legge solo per
+  // capire se questa pagina e' quella giusta. Senza, un gettone di un'altra
+  // app apriva un modulo che poi falliva e basta, senza spiegare perche'.
+  function progettoDelGettone(jwt){
+    try {
+      var pezzo = jwt.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+      while (pezzo.length % 4) { pezzo += "="; }
+      var dentro = JSON.parse(atob(pezzo));
+      return dentro.iss || "";
+    } catch (e) { return ""; }   // illeggibile: lo faccia decidere al server
+  }
+
+  function eDiUnAltraApp(jwt){
+    var emittente = progettoDelGettone(jwt);
+    return emittente !== "" && emittente.indexOf(URL_BASE) !== 0;
+  }
+
   function apriModulo(){
     mostra("modulo");
     document.getElementById("p1").focus();
@@ -166,6 +200,9 @@
   // --- che pagina mostrare ------------------------------------------------
   if (campo.error || campo.error_code || campo.error_description) {
     fallito(null, null);
+
+  } else if (accesso && eDiUnAltraApp(accesso)) {
+    mostra("altraapp");
 
   } else if (campo.type === "signup" || campo.type === "email_change") {
     mostra("confermato");
