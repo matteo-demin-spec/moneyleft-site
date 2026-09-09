@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="img/icona-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="img/icona-96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/icona-180.png">
+<title>Nuova password &middot; MoneyLeft</title>
+<meta name="description" content="Scegli una nuova password per il tuo account MoneyLeft.">
+<style>
+  /* Stessi font del resto del sito, serviti da qui: una richiesta a
+     fonts.googleapis.com manderebbe l'IP di chi apre questa pagina a un terzo,
+     e questa e' la pagina in cui si digita una password. */
+  @font-face{
+    font-family:"Manrope"; font-style:normal; font-weight:400 800; font-display:swap;
+    src:url("font/manrope-latin-ext.woff2") format("woff2");
+    unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  @font-face{
+    font-family:"Manrope"; font-style:normal; font-weight:400 800; font-display:swap;
+    src:url("font/manrope-latin.woff2") format("woff2");
+    unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  :root{ --viola:#7C4DEF; --testo:#1c1e26; --grigio:#5b6070; --bordo:#e7e9ef; --sfondo:#f7f8fa;
+         --verde:#0f7a4d; --rosso:#b3261e; }
+  *{box-sizing:border-box;}
+  body{ margin:0; font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--testo); background:var(--sfondo); line-height:1.6; }
+  .wrap{ max-width:520px; margin:0 auto; padding:32px 20px 64px; }
+  header{ text-align:center; padding:8px 0 4px; }
+  .logo{ width:88px; height:88px; border-radius:20px; margin:0 auto 14px; display:block;
+    box-shadow:0 8px 24px rgba(122,85,204,.26); }
+  h1{ font-size:1.55rem; margin:0 0 6px; }
+  .sub{ color:var(--grigio); margin:0; font-size:.98rem; }
+  .card{ background:#fff; border:1px solid var(--bordo); border-radius:16px; padding:24px; margin:26px 0; }
+  .card h2{ font-size:1.12rem; margin:0 0 10px; }
+  p{ margin:8px 0; color:#3a3e4b; }
+  label{ display:block; font-weight:600; font-size:.92rem; margin:16px 0 6px; }
+  input[type=password]{ width:100%; font:inherit; padding:12px 14px; border:1px solid var(--bordo);
+    border-radius:12px; background:#fff; color:var(--testo); }
+  input[type=password]:focus{ outline:2px solid var(--viola); outline-offset:1px; border-color:var(--viola); }
+  .aiuto{ color:var(--grigio); font-size:.85rem; margin:6px 0 0; }
+  button{ width:100%; font:inherit; font-weight:700; margin-top:20px; background:var(--viola); color:#fff;
+    border:0; padding:14px 20px; border-radius:12px; cursor:pointer; }
+  button:disabled{ opacity:.55; cursor:default; }
+  .esito{ margin-top:16px; font-size:.94rem; font-weight:600; }
+  .esito.male{ color:var(--rosso); }
+  .esito.bene{ color:var(--verde); }
+  .evidenza{ background:rgba(124,77,239,.09); border-radius:12px; padding:14px 16px; font-size:.93rem; }
+  nav.top{ margin-bottom:8px; font-size:.9rem; }
+  a{ color:var(--viola); }
+  footer{ margin-top:32px; padding-top:16px; border-top:1px solid var(--bordo); color:#9aa0ad; font-size:.8rem; text-align:center; }
+  [hidden]{ display:none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="top"><a href="./">&larr; MoneyLeft</a> &nbsp;&middot;&nbsp; <a href="assistenza.html">Assistenza</a></nav>
+
+  <header>
+    <img class="logo" src="img/icona-180.png" alt="MoneyLeft" width="88" height="88">
+    <h1>Nuova password</h1>
+    <p class="sub">Account di sincronizzazione MoneyLeft</p>
+  </header>
+
+  <!-- 1. Il modulo vero, mostrato solo se il link porta un accesso valido. -->
+  <div class="card" id="modulo" hidden>
+    <h2>Scegli la nuova password</h2>
+    <p>Da qui in avanti entrerai in MoneyLeft con questa.</p>
+    <form id="form" novalidate>
+      <label for="p1">Nuova password</label>
+      <input type="password" id="p1" autocomplete="new-password" required minlength="8" spellcheck="false">
+      <p class="aiuto">Almeno 8 caratteri.</p>
+
+      <label for="p2">Ripetila</label>
+      <input type="password" id="p2" autocomplete="new-password" required minlength="8" spellcheck="false">
+
+      <button type="submit" id="invia">Salva la nuova password</button>
+      <p class="esito" id="esito" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <!-- 2. Fatto. -->
+  <div class="card" id="fatto" hidden>
+    <h2>Password cambiata</h2>
+    <p>Torna in MoneyLeft, apri <strong>Impostazioni &rsaquo; Account</strong> e accedi con la nuova password.</p>
+    <p class="evidenza">I tuoi dati non sono stati toccati: cambia solo il modo di entrare.</p>
+  </div>
+
+  <!-- 3. Conferma della registrazione (se un domani verra' attivata). -->
+  <div class="card" id="confermato" hidden>
+    <h2>Account confermato</h2>
+    <p>Puoi tornare in MoneyLeft e accedere con la tua email e la password che hai scelto.</p>
+  </div>
+
+  <!-- 4. Link scaduto, gia' usato, o aperto senza link. -->
+  <div class="card" id="scaduto" hidden>
+    <h2 id="scaduto-titolo">Questo link non vale piu&rsquo;</h2>
+    <p id="scaduto-testo">I link per reimpostare la password durano un&rsquo;ora e si possono usare una volta sola.</p>
+    <p>Riapri MoneyLeft, vai su <strong>Impostazioni &rsaquo; Account &rsaquo; Accedi</strong> e tocca di nuovo
+       <strong>Password dimenticata?</strong>: ne arriver&agrave; uno nuovo.</p>
+    <p class="evidenza">Se l&rsquo;email non arriva entro qualche minuto, controlla la posta indesiderata,
+       oppure scrivimi: <a href="mailto:matteo.de.min@outlook.it?subject=Recupero%20account%20MoneyLeft">matteo.de.min@outlook.it</a>.</p>
+  </div>
+
+  <footer>MoneyLeft &middot; <a href="privacy.html">Privacy</a> &middot; <a href="termini.html">Termini</a></footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // Stesso progetto dell'app. La chiave "anon" e' pubblica per costruzione:
+  // e' quella che viaggia dentro ogni copia dell'app, e da sola non apre
+  // niente — sono le regole Row Level Security sulla tabella a decidere.
+  var URL_BASE = "https://xivsqbaiudffulcwhain.supabase.co";
+  var CHIAVE = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpdnNxYmFpdWRmZnVsY3doYWluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNTU0MDQsImV4cCI6MjEwMTkzMTQwNH0.CHz7d9RsZbyWEYOKY0eCAkygns9KCkGmQGZs1AUsQx4";
+
+  var MINIMO = 8;   // come l'app: le due soglie devono dire la stessa cosa
+
+  function mostra(id){ document.getElementById(id).hidden = false; }
+  function leggi(testo){
+    var fuori = {};
+    (testo || "").replace(/^[#?]/, "").split("&").forEach(function(pezzo){
+      if (!pezzo) return;
+      var i = pezzo.indexOf("=");
+      var k = decodeURIComponent(i < 0 ? pezzo : pezzo.slice(0, i));
+      fuori[k] = i < 0 ? "" : decodeURIComponent(pezzo.slice(i + 1).replace(/\+/g, " "));
+    });
+    return fuori;
+  }
+
+  // Supabase puo' consegnare l'esito in due forme diverse a seconda di come
+  // e' fatto il modello dell'email: la sessione gia' pronta nel frammento
+  // (#access_token=...), oppure un gettone da scambiare nella query
+  // (?token_hash=...). Le gestisco tutte e due invece di indovinare quale.
+  var frammento = leggi(window.location.hash);
+  var query = leggi(window.location.search);
+  var campo = {};
+  Object.keys(query).forEach(function(k){ campo[k] = query[k]; });
+  Object.keys(frammento).forEach(function(k){ campo[k] = frammento[k]; });
+
+  // Il gettone sparisce dalla barra degli indirizzi appena letto: non deve
+  // restare nella cronologia del telefono ne' finire in uno screenshot.
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState(null, "", window.location.pathname);
+  }
+
+  var accesso = campo.access_token || null;
+
+  function apriModulo(){
+    mostra("modulo");
+    document.getElementById("p1").focus();
+  }
+
+  function fallito(titolo, testo){
+    if (titolo) document.getElementById("scaduto-titolo").textContent = titolo;
+    if (testo) document.getElementById("scaduto-testo").textContent = testo;
+    mostra("scaduto");
+  }
+
+  // --- che pagina mostrare ------------------------------------------------
+  if (campo.error || campo.error_code || campo.error_description) {
+    fallito(null, null);
+
+  } else if (campo.type === "signup" || campo.type === "email_change") {
+    mostra("confermato");
+
+  } else if (accesso) {
+    apriModulo();
+
+  } else if (campo.token_hash && campo.type) {
+    // Forma con gettone da scambiare: lo si converte in una sessione.
+    fetch(URL_BASE + "/auth/v1/verify", {
+      method: "POST",
+      headers: { "apikey": CHIAVE, "Content-Type": "application/json" },
+      body: JSON.stringify({ type: campo.type, token_hash: campo.token_hash })
+    }).then(function(r){
+      return r.json().then(function(corpo){ return { ok: r.ok, corpo: corpo }; });
+    }).then(function(esito){
+      if (esito.ok && esito.corpo && esito.corpo.access_token) {
+        accesso = esito.corpo.access_token;
+        if (campo.type === "recovery") { apriModulo(); } else { mostra("confermato"); }
+      } else {
+        fallito(null, null);
+      }
+    }).catch(function(){
+      fallito("Non riesco a contattare il server",
+              "Controlla la connessione e riprova ad aprire il link dall'email.");
+    });
+
+  } else {
+    fallito("Serve il link che ti ho mandato via email",
+            "Questa pagina funziona solo aprendo il link contenuto nell'email di reimpostazione.");
+  }
+
+  // --- invio --------------------------------------------------------------
+  document.getElementById("form").addEventListener("submit", function(evento){
+    evento.preventDefault();
+    var p1 = document.getElementById("p1").value;
+    var p2 = document.getElementById("p2").value;
+    var esito = document.getElementById("esito");
+    var bottone = document.getElementById("invia");
+
+    esito.className = "esito male";
+    if (p1.length < MINIMO) { esito.textContent = "La password deve avere almeno " + MINIMO + " caratteri."; return; }
+    if (p1 !== p2) { esito.textContent = "Le due password non coincidono."; return; }
+    if (!accesso) { esito.textContent = "Il link non e’ piu’ valido: chiedine un altro dall’app."; return; }
+
+    bottone.disabled = true;
+    esito.className = "esito";
+    esito.textContent = "Salvo…";
+
+    fetch(URL_BASE + "/auth/v1/user", {
+      method: "PUT",
+      headers: {
+        "apikey": CHIAVE,
+        "Authorization": "Bearer " + accesso,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ password: p1 })
+    }).then(function(r){
+      if (r.ok) {
+        document.getElementById("modulo").hidden = true;
+        mostra("fatto");
+        return;
+      }
+      return r.json().catch(function(){ return {}; }).then(function(corpo){
+        bottone.disabled = false;
+        esito.className = "esito male";
+        var m = corpo.msg || corpo.error_description || corpo.message || "";
+        // I messaggi del server sono in inglese: quelli che capitano davvero
+        // li traduco, il resto lo dico in modo utile invece che letterale.
+        if (/expired|invalid/i.test(m)) {
+          esito.textContent = "Il link e’ scaduto o gia’ usato: chiedine un altro dall’app.";
+        } else if (/should be different|same as the old/i.test(m)) {
+          esito.textContent = "Questa e’ la password che avevi gia’: scegline una diversa.";
+        } else if (/at least|weak|short/i.test(m)) {
+          esito.textContent = "Password troppo debole: usa almeno " + MINIMO + " caratteri.";
+        } else {
+          esito.textContent = "Non sono riuscito a salvarla. Riprova, o scrivimi a matteo.de.min@outlook.it";
+        }
+      });
+    }).catch(function(){
+      bottone.disabled = false;
+      esito.className = "esito male";
+      esito.textContent = "Non riesco a contattare il server. Controlla la connessione e riprova.";
+    });
+  });
+})();
+</script>
+</body>
+</html>
