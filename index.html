@@ -58,6 +58,18 @@
   }
 
   :root{
+    /* Gettoni del movimento. Le durate qui sotto non sono scelte a occhio:
+       stanno su una scala unica, cosi' due animazioni che fanno la stessa
+       cosa durano davvero la stessa cosa, e cambiarne una si fa in un punto
+       solo invece che a caccia per il foglio. */
+    --durata-passo:80ms;      /* scarto fra un elemento e il successivo */
+    --durata-svelta:250ms;    /* passaggio del cursore, apertura di una scheda */
+    --durata-lenta:500ms;     /* comparsa di un blocco: e' un momento, non un gesto */
+    --curva:cubic-bezier(.22,1,.36,1);       /* superfici che entrano ed escono */
+    --curva-ritorno:cubic-bezier(.34,3.85,.64,1); /* il rientro dopo il cursore */
+    --curva-piana:ease-in-out;                /* comparse e rivelazioni */
+    --salita:12px;            /* quanto sale un blocco mentre compare */
+
     --sfondo:#080a14;
     --sfondo-2:#0d1020;
     --pannello:rgba(255,255,255,.045);
@@ -118,7 +130,7 @@
     -webkit-backdrop-filter:saturate(180%) blur(18px);
     background:rgba(8,10,20,.72);
     border-bottom:1px solid transparent;
-    transition:border-color .3s ease;
+    transition:border-color var(--durata-svelta) var(--curva);
   }
   header.barra.staccata{ border-bottom-color:var(--bordo); }
   .barra .wrap{ display:flex; align-items:center; gap:20px; height:66px; }
@@ -221,9 +233,15 @@
   .griglia{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px; }
   .carta{
     background:var(--pannello); border:1px solid var(--bordo); border-radius:var(--raggio);
-    padding:26px 24px; transition:transform .3s ease, border-color .3s ease, background .3s ease;
+    padding:26px 24px;
+    transition:transform var(--durata-svelta) var(--curva-ritorno),
+               border-color var(--durata-svelta) var(--curva),
+               background var(--durata-svelta) var(--curva);
   }
-  .carta:hover{ transform:translateY(-4px); border-color:rgba(122,85,204,.4); background:rgba(255,255,255,.07); }
+  .carta:hover{
+    transform:translateY(-4px); border-color:rgba(122,85,204,.4); background:rgba(255,255,255,.07);
+    transition-timing-function:var(--curva);
+  }
   .icona{
     width:46px; height:46px; border-radius:14px; display:grid; place-items:center;
     background:rgba(122,85,204,.18);
@@ -300,7 +318,7 @@
   .domande{ max-width:760px; margin:44px auto 0; }
   details{
     background:var(--pannello); border:1px solid var(--bordo); border-radius:16px;
-    padding:0 20px; margin-bottom:12px; transition:border-color .25s ease;
+    padding:0 20px; margin-bottom:12px; transition:border-color var(--durata-svelta) var(--curva);
   }
   details[open]{ border-color:rgba(122,85,204,.35); }
   summary{
@@ -310,7 +328,7 @@
   summary::-webkit-details-marker{ display:none; }
   summary::after{
     content:"+"; margin-left:auto; color:var(--viola); font-size:1.5rem; font-weight:400;
-    line-height:1; transition:transform .25s ease;
+    line-height:1; transition:transform var(--durata-svelta) var(--curva);
   }
   details[open] summary::after{ transform:rotate(45deg); }
   details p{ color:var(--tenue); font-size:.94rem; margin:0 0 20px; padding-right:34px; }
@@ -332,10 +350,22 @@
      Al contrario (nascosto di partenza, mostrato dal JS) bastava un errore di
      script, o un browser che blocca IntersectionObserver, perche' tutta la
      pagina sotto l'apertura restasse invisibile. */
-  html.js .compare{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
-  html.js .compare.vista{ opacity:1; transform:none; }
+  /* La comparsa e' un'animazione e non una transizione, e non e' un vezzo.
+     Molti di questi blocchi sono anche `.carta`, che al passaggio del cursore
+     si solleva. `transition` e' una proprieta' sola: la regola della comparsa
+     — piu' specifica, perche' ha `html.js` davanti — la riscriveva per intero
+     e portava via con se' il sollevamento delle schede, che percio' non ha
+     mai avuto una transizione. Scattava e basta, e non se ne accorgeva
+     nessuno perche' il difetto era in cio' che *non* succedeva. Con
+     un'animazione le due cose vivono su binari diversi. */
+  html.js .compare{ opacity:0; }
+  html.js .compare.vista{ animation:comparsa var(--durata-lenta) var(--curva-piana) both; }
+  @keyframes comparsa{
+    from{ opacity:0; translate:0 var(--salita); }
+    to{ opacity:1; translate:none; }
+  }
   @media (prefers-reduced-motion:reduce){
-    html.js .compare{ opacity:1; transform:none; transition:none; }
+    html.js .compare, html.js .compare.vista{ opacity:1; translate:none; animation:none; }
     html{ scroll-behavior:auto; }
   }
 
@@ -779,7 +809,13 @@
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
     daMostrare.forEach(function (n, i) {
-      n.style.transitionDelay = Math.min(i % 4, 3) * 70 + 'ms';
+      // Lo scarto fra un elemento e il successivo esce dallo stesso
+      // gettone del foglio di stile, non da un numero scritto qui: tre
+      // scatti da 80ms fanno 240ms in tutto, sotto la soglia oltre la
+      // quale l'ultimo elemento sembra arrivare in ritardo.
+      var passo = parseInt(getComputedStyle(document.documentElement)
+                    .getPropertyValue('--durata-passo'), 10) || 80;
+      n.style.animationDelay = Math.min(i % 4, 3) * passo + 'ms';
       osservatore.observe(n);
     });
     // Rete di sicurezza: qualunque cosa vada storta nell'osservatore, dopo tre
