@@ -175,8 +175,52 @@
   .cta.fantasma:hover{ background:rgba(255,255,255,.1); }
 
   /* ---------- apertura ---------- */
-  .apertura{ position:relative; z-index:1; padding:76px 0 40px; }
-  .apertura .wrap{ display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; }
+  /* ================= APERTURA CINEMATOGRAFICA =================
+     Una scena che resta ferma mentre la pagina scorre: il titolo si allarga e
+     si dissolve, la scheda scura entra da dietro. Non e' scroll-jacking - la
+     pagina scorre normalmente, e' la scena a stare incollata per due schermate.
+
+     Tutto il movimento passa da due sole variabili, --avanzamento (0 -> 1) e
+     --mouse-x/y, scritte da uno script in fondo alla pagina. Con
+     prefers-reduced-motion lo script non parte proprio e la scena resta nel
+     suo stato finale, che e' gia' leggibile per intero. */
+  /* --avanzamento parte da 1, cioe' dalla scena gia' arrivata.
+     Se il JavaScript non gira - disattivato, bloccato, un errore altrove -
+     si vede la scheda con il telefono, che e' la meta' che vale. Partendo da
+     0 invece si sarebbe visto un riquadro vuoto per sempre: il valore di
+     riposo di un'animazione dev'essere lo stato leggibile, non quello
+     iniziale. Lo script lo riporta a 0 e lo guida appena parte. */
+  .apertura{ position:relative; z-index:1; height:210vh; --avanzamento:1; }
+  .scena{
+    position:sticky; top:0; height:100vh; overflow:hidden;
+    display:grid; place-items:center;
+  }
+
+  /* Grana della pellicola: rumore vero generato dall'SVG, non una texture da
+     scaricare. Toglie al fondo piatto quell'aria di gradiente generato. */
+  .grana{
+    position:absolute; inset:0; pointer-events:none; z-index:40;
+    opacity:.05; mix-blend-mode:overlay;
+    background:url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="r"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23r)"/></svg>');
+  }
+  .reticolo{
+    position:absolute; inset:0; pointer-events:none; z-index:0; opacity:.5;
+    background-size:60px 60px;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 0%, transparent 70%);
+    mask-image:radial-gradient(ellipse at center, #000 0%, transparent 70%);
+  }
+
+  /* --- il blocco del titolo, che esce di scena scorrendo --- */
+  .titolo-blocco{
+    position:absolute; inset:0; z-index:10; padding:0 24px; text-align:center;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transform:scale(calc(1 + var(--avanzamento,0) * .22));
+    opacity:calc(1 - var(--avanzamento,0) * 2.1);
+    will-change:transform, opacity;
+  }
   .icona-apertura{
     width:72px; height:72px; border-radius:17px; margin-bottom:18px;
     box-shadow:0 12px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.08);
@@ -188,26 +232,100 @@
     background:rgba(122,85,204,.14); border:1px solid rgba(122,85,204,.3);
   }
   h1{
-    font-size:clamp(2.6rem,5.4vw,4.05rem); line-height:1.04; letter-spacing:-.035em;
-    font-weight:850; margin:22px 0 18px;
+    font-size:clamp(2.7rem,7.2vw,5.6rem); line-height:.98; letter-spacing:-.045em;
+    font-weight:850; margin:20px 0 16px; display:flex; flex-direction:column; align-items:center; gap:2px;
   }
-  h1 em{
-    font-style:normal;
-    background:linear-gradient(100deg,var(--viola),var(--menta));
+  /* Fuori dalla scheda il testo e' materia opaca: un'ombra portata, non un
+     bagliore. Il bagliore su fondo scuro fa subito presentazione aziendale. */
+  .riga-opaca{ color:var(--testo); text-shadow:0 10px 30px rgba(255,255,255,.10), 0 2px 4px rgba(255,255,255,.06); }
+  .riga-argento{
+    background:linear-gradient(180deg, var(--testo) 0%, rgba(242,244,251,.42) 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
+    transform:translateZ(0);  /* senza questo WebKit taglia i discendenti */
+    filter:drop-shadow(0 10px 20px rgba(255,255,255,.10)) drop-shadow(0 2px 4px rgba(255,255,255,.07));
   }
-  .occhiello{ color:var(--tenue); font-size:1.06rem; max-width:34em; margin:0 0 26px; }
-  .bottoni{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+  .occhiello{ color:var(--tenue); font-size:1.06rem; max-width:36em; margin:0 auto 26px; }
+  .bottoni{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; }
   .nota-cta{ color:#7d859f; font-size:.82rem; margin-top:14px; }
 
-  .vetrina{ position:relative; display:grid; place-items:center; }
-  .vetrina img{
-    width:min(300px,78%); border-radius:30px;
-    box-shadow:0 40px 90px rgba(0,0,0,.62), 0 0 0 1px rgba(255,255,255,.07);
+  /* --- la scheda profonda, che entra --- */
+  .scheda{
+    position:relative; z-index:20; width:min(1180px, 92vw); height:min(76vh, 680px);
+    border-radius:36px; overflow:hidden;
+    background:linear-gradient(145deg,#162C6D 0%, #0A101D 100%);
+    border:1px solid rgba(255,255,255,.05);
+    box-shadow:
+      0 40px 100px -20px rgba(0,0,0,.9),
+      0 20px 40px -20px rgba(0,0,0,.8),
+      inset 0 1px 2px rgba(255,255,255,.2),
+      inset 0 -2px 4px rgba(0,0,0,.8);
+    transform:scale(calc(.86 + var(--avanzamento,0) * .14));
+    opacity:calc(-.35 + var(--avanzamento,0) * 2.4);
+    will-change:transform, opacity;
   }
-  .vetrina .dietro{
-    position:absolute; width:min(250px,64%); right:2%; top:12%;
-    transform:rotate(7deg); opacity:.5; filter:blur(.4px); z-index:-1;
+  /* Il riflesso segue il cursore: e' la differenza fra una scheda disegnata e
+     una superficie. Sul telefono non succede niente e va benissimo cosi'. */
+  .lucentezza{
+    position:absolute; inset:0; border-radius:inherit; pointer-events:none; z-index:5;
+    background:radial-gradient(800px circle at var(--mouse-x,50%) var(--mouse-y,50%), rgba(255,255,255,.06) 0%, transparent 40%);
+    mix-blend-mode:screen;
+  }
+  .scheda-griglia{
+    position:relative; z-index:2; height:100%;
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:24px;
+    padding:36px 48px;
+  }
+  .scheda-testo b{
+    display:block; font-size:1.25rem; font-weight:800; letter-spacing:-.02em;
+    background:linear-gradient(180deg,#fff 0%, #A1A1AA 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    transform:translateZ(0); margin-bottom:8px;
+  }
+  .scheda-testo span{ display:block; color:rgba(255,255,255,.56); font-size:.95rem; line-height:1.5; max-width:19em; }
+  .scheda-testo.destra{ justify-self:end; text-align:right; }
+  .scheda-testo.destra span{ margin-left:auto; }
+
+  /* --- il telefono --- */
+  .telefono{
+    position:relative; width:264px; aspect-ratio:9/19.5; justify-self:center;
+    border-radius:3rem; background:#111;
+    box-shadow:
+      inset 0 0 0 2px #52525B,
+      inset 0 0 0 7px #000,
+      0 40px 80px -15px rgba(0,0,0,.9),
+      0 15px 25px -5px rgba(0,0,0,.7);
+    transform:translateY(calc((1 - var(--avanzamento,0)) * 34px));
+    will-change:transform;
+  }
+  .tasto{
+    position:absolute; background:linear-gradient(90deg,#404040 0%, #171717 100%);
+    box-shadow:-2px 0 5px rgba(0,0,0,.8), inset -1px 0 1px rgba(255,255,255,.15), inset 1px 0 2px rgba(0,0,0,.8);
+  }
+  .tasto.a{ top:96px;  left:-3px; width:3px; height:22px; border-radius:3px 0 0 3px; }
+  .tasto.b{ top:130px; left:-3px; width:3px; height:40px; border-radius:3px 0 0 3px; }
+  .tasto.c{ top:178px; left:-3px; width:3px; height:40px; border-radius:3px 0 0 3px; }
+  .tasto.d{ top:140px; right:-3px; width:3px; height:62px; border-radius:0 3px 3px 0; }
+  .schermo{
+    position:absolute; inset:7px; border-radius:2.5rem; overflow:hidden; background:#050914;
+    box-shadow:inset 0 0 15px rgba(0,0,0,1);
+  }
+  .schermo img{ display:block; width:100%; height:100%; object-fit:cover; object-position:top; }
+  .riflesso{
+    position:absolute; inset:0; z-index:3; pointer-events:none;
+    background:linear-gradient(110deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,0) 45%);
+  }
+  .isola{
+    position:absolute; top:11px; left:50%; transform:translateX(-50%);
+    width:92px; height:26px; border-radius:999px; background:#000; z-index:4;
+    box-shadow:inset 0 -1px 2px rgba(255,255,255,.1);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .apertura{ height:auto; }
+    .scena{ position:static; height:auto; padding:76px 0 48px; gap:44px; }
+    .titolo-blocco{ position:static; transform:none; opacity:1; }
+    .scheda{ transform:none; opacity:1; height:auto; }
+    .telefono{ transform:none; }
   }
 
   /* ---------- striscia di fatti ---------- */
@@ -371,8 +489,9 @@
 
   /* ---------- schermi stretti ---------- */
   @media (max-width:900px){
-    .apertura .wrap{ grid-template-columns:1fr; gap:36px; }
-    .vetrina .dietro{ display:none; }
+    .scheda-griglia{ grid-template-columns:1fr; justify-items:center; gap:18px; padding:22px; }
+    .scheda-testo{ display:none; }
+    .telefono{ width:232px; }
     .fatti .wrap{ grid-template-columns:repeat(2,1fr); }
     .griglia{ grid-template-columns:1fr 1fr; }
     .riga{ grid-template-columns:1fr; gap:32px; margin-top:64px; }
@@ -384,7 +503,12 @@
     /* Sul telefono l'apertura era altissima: titolo grande, paragrafo lungo e
        due bottoni spingevano la schermata dell'app sotto due schermate di
        scorrimento. Qui si stringe tutto quel blocco. */
-    .apertura{ padding:34px 0 18px; }
+    .apertura{ height:auto; }
+    .scena{ position:static; height:auto; padding:34px 0 26px; display:flex; flex-direction:column; gap:34px; }
+    .titolo-blocco{ position:static; transform:none; opacity:1; }
+    .scheda{ transform:none; opacity:1; height:auto; width:100%; border-radius:28px; }
+    .telefono{ transform:none; width:214px; }
+    h1{ gap:0; }
     h1{ font-size:clamp(2.15rem,8.4vw,2.7rem); margin:16px 0 14px; }
     .occhiello{ font-size:.97rem; margin-bottom:20px; }
     .bottoni{ gap:10px; }
@@ -421,27 +545,57 @@
 </header>
 
 <!-- ============================ APERTURA ============================ -->
-<div class="apertura">
-  <div class="wrap">
-    <div>
+<div class="apertura" id="apertura">
+  <div class="scena">
+    <div class="grana" aria-hidden="true"></div>
+    <div class="reticolo" aria-hidden="true"></div>
+
+    <div class="titolo-blocco">
       <img class="icona-apertura" src="img/icona-180.png" alt="Icona di MoneyLeft" width="72" height="72">
       <span class="pastiglia">Il tuo mese inizia quando ti pagano</span>
-      <h1>Sai sempre <em>quanto ti resta</em>, fino al prossimo stipendio.</h1>
+      <h1>
+        <span class="riga-opaca">Sai sempre</span>
+        <span class="riga-argento">quanto ti resta</span>
+      </h1>
       <p class="occhiello">
         Il mese della banca inizia il primo. Il tuo inizia il giorno in cui ti pagano.
-        MoneyLeft calcola tutto sul <strong>tuo</strong> ciclo: cosa hai già speso, cosa
+        MoneyLeft calcola tutto sul <strong>tuo</strong> ciclo: cosa hai gi&agrave; speso, cosa
         sta per essere addebitato e quanto ti resta davvero da qui alla prossima paga.
       </p>
       <div class="bottoni">
         <a class="badge-store" href="https://apps.apple.com/it/app/id6799703830"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 0 184.8 0 273.5c0 26.2 4.8 53.3 14.4 81.2 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.6zM256.6 93c31-36.8 28.2-70.3 27.3-82.4-27.4 1.6-59.1 18.7-77.2 39.7-19.9 22.6-31.6 50.5-29.1 81.9 29.6 2.3 56.7-12.9 79-39.2z"/></svg><span class="righe"><small>Scaricala su</small><b>App Store</b></span></a>
-        <a class="cta fantasma" href="#funzioni">Guarda com'è fatta</a>
+        <a class="cta fantasma" href="#funzioni">Guarda com&rsquo;&egrave; fatta</a>
       </div>
       <p class="nota-cta">Nessun collegamento al conto in banca. Nessun account obbligatorio.<br>
          Per iPhone con iOS 17, e dallo stesso acquisto anche su Mac con chip Apple e Apple Vision Pro.</p>
     </div>
-    <div class="vetrina">
-      <img class="dietro" src="img/schermata-4.jpg" alt="">
-      <img src="img/schermata-1.jpg" alt="La schermata principale di MoneyLeft: patrimonio, quanto ti resta nel ciclo e quanto puoi spendere oggi.">
+
+    <div class="scheda" id="scheda">
+      <div class="lucentezza" aria-hidden="true"></div>
+      <div class="scheda-griglia">
+        <div class="scheda-testo sinistra">
+          <b>Dal giorno di paga</b>
+          <span>Il ciclo lo decidi tu, non il calendario. Il 15, il 27, l&rsquo;ultimo venerd&igrave;: quello &egrave; il tuo primo giorno.</span>
+        </div>
+
+        <div class="telefono">
+          <div class="tasto a" aria-hidden="true"></div>
+          <div class="tasto b" aria-hidden="true"></div>
+          <div class="tasto c" aria-hidden="true"></div>
+          <div class="tasto d" aria-hidden="true"></div>
+          <div class="schermo">
+            <img src="img/home-app.jpg" width="680" height="1478"
+                 alt="La schermata principale di MoneyLeft: il patrimonio, quanto resta nel ciclo dal 15 agosto al 14 settembre, e quanto si pu&ograve; spendere oggi.">
+            <div class="isola" aria-hidden="true"></div>
+            <div class="riflesso" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="scheda-testo destra">
+          <b>Rate gi&agrave; scalate</b>
+          <span>Quello che deve ancora uscire &egrave; gi&agrave; tolto dal conto. Il numero che vedi lo puoi spendere davvero.</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -848,5 +1002,49 @@
 }
 </script>
 
+
+<script>
+/* La coreografia dell'apertura. Nessuna libreria: GSAP avrebbe portato
+   settanta chilobyte e una richiesta a un CDN, e questo sito non ne fa
+   nessuna a terzi - e' scritto nella verifica di sicurezza, quindi resta
+   vero.
+
+   Tutto passa da una variabile sola, --avanzamento da 0 a 1, letta dal CSS
+   qui sopra: il titolo si allarga e sfuma, la scheda entra, il telefono
+   sale. Chi ha chiesto meno movimento nelle impostazioni di sistema non
+   entra mai qui dentro e vede la scena gia' al suo stato finale. */
+(function () {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var apertura = document.getElementById("apertura");
+  var scheda = document.getElementById("scheda");
+  if (!apertura) return;
+
+  var inCoda = false;
+  function aggiorna() {
+    inCoda = false;
+    var corsa = apertura.offsetHeight - window.innerHeight;
+    if (corsa <= 0) return;
+    var p = (window.scrollY - apertura.offsetTop) / corsa;
+    apertura.style.setProperty("--avanzamento", Math.min(1, Math.max(0, p)).toFixed(4));
+  }
+  function chiedi() {
+    if (!inCoda) { inCoda = true; requestAnimationFrame(aggiorna); }
+  }
+  apertura.style.setProperty("--avanzamento", "0");
+  window.addEventListener("scroll", chiedi, { passive: true });
+  window.addEventListener("resize", chiedi);
+  aggiorna();
+
+  /* Il riflesso sulla scheda segue il cursore. Solo dove c'e' un cursore
+     vero: su un touch il puntatore non esiste e l'evento non arriva mai. */
+  if (scheda && window.matchMedia("(hover: hover)").matches) {
+    scheda.addEventListener("pointermove", function (e) {
+      var r = scheda.getBoundingClientRect();
+      scheda.style.setProperty("--mouse-x", (e.clientX - r.left) + "px");
+      scheda.style.setProperty("--mouse-y", (e.clientY - r.top) + "px");
+    });
+  }
+})();
+</script>
 </body>
 </html>
