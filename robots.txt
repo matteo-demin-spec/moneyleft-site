@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://matteo-demin-spec.github.io/moneyleft-site/sitemap.xml
+Sitemap: https://moneyleft.it/sitemap.xml
