@@ -190,10 +190,29 @@
      0 invece si sarebbe visto un riquadro vuoto per sempre: il valore di
      riposo di un'animazione dev'essere lo stato leggibile, non quello
      iniziale. Lo script lo riporta a 0 e lo guida appena parte. */
-  .apertura{ position:relative; z-index:1; height:210vh; --avanzamento:1; }
+  .apertura{ position:relative; z-index:1; height:180vh; --avanzamento:1; --presenza:1; }
   .scena{
     position:sticky; top:0; height:100vh; overflow:hidden;
     display:grid; place-items:center;
+    /* La scena si porta dietro il fondo suo, e non e' un vezzo.
+       L'alone del corpo e' `position:fixed`, cioe' incollato alla finestra:
+       finche' la pagina scorre normalmente non si nota, ma qui la scena resta
+       ferma per due schermate e in quel tratto si vedono due livelli di fondo
+       che non sono d'accordo - uno immobile rispetto alla finestra, uno
+       rispetto alla scena. Con un fondo proprio, mentre e' incollata si vede
+       una superficie sola (§ segnalato da Matteo). */
+    background:
+      radial-gradient(980px 760px at 50% -12%, rgba(109,40,217,calc(.30 - var(--presenza,1) * .12)), transparent 62%),
+      radial-gradient(1100px 900px at 50% 50%, rgba(29,78,216,calc(.06 + var(--presenza,1) * .20)), transparent 66%),
+      radial-gradient(680px 560px at 98% 96%, rgba(15,118,110,.16), transparent 60%),
+      var(--sfondo);
+  }
+  /* Lo stacco verso la sezione dopo: senza, la scena finisce di netto e si
+     vede la cucitura fra il suo fondo e quello della pagina. */
+  .scena::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:140px;
+    pointer-events:none; z-index:45;
+    background:linear-gradient(180deg, transparent, var(--sfondo));
   }
 
   /* Grana della pellicola: rumore vero generato dall'SVG, non una texture da
@@ -218,7 +237,7 @@
     position:absolute; inset:0; z-index:10; padding:0 24px; text-align:center;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     transform:scale(calc(1 + var(--avanzamento,0) * .22));
-    opacity:calc(1 - var(--avanzamento,0) * 2.1);
+    opacity:calc(1 - var(--avanzamento,0) * 3.2);
     will-change:transform, opacity;
   }
   .icona-apertura{
@@ -259,8 +278,13 @@
       0 20px 40px -20px rgba(0,0,0,.8),
       inset 0 1px 2px rgba(255,255,255,.2),
       inset 0 -2px 4px rgba(0,0,0,.8);
-    transform:scale(calc(.86 + var(--avanzamento,0) * .14));
-    opacity:calc(-.35 + var(--avanzamento,0) * 2.4);
+    /* L'arco, non la salita. La scheda entra, si ingrandisce, e poi si
+       ritira lasciando di nuovo il fondo neutro prima della sezione dopo:
+       e' un momento con un inizio e una fine, non una cosa che cresce e
+       resta li'. --presenza vale 0 ai due capi e 1 in mezzo, e la calcola
+       lo script (§ come fa il sito di ShiftPro, indicato da Matteo). */
+    transform:scale(calc(.88 + var(--presenza,1) * .12));
+    opacity:var(--presenza,1);
     will-change:transform, opacity;
   }
   /* Il riflesso segue il cursore: e' la differenza fra una scheda disegnata e
@@ -294,7 +318,7 @@
       inset 0 0 0 7px #000,
       0 40px 80px -15px rgba(0,0,0,.9),
       0 15px 25px -5px rgba(0,0,0,.7);
-    transform:translateY(calc((1 - var(--avanzamento,0)) * 34px));
+    transform:translateY(calc((1 - var(--presenza,1)) * 30px));
     will-change:transform;
   }
   .tasto{
@@ -1025,12 +1049,19 @@
     var corsa = apertura.offsetHeight - window.innerHeight;
     if (corsa <= 0) return;
     var p = (window.scrollY - apertura.offsetTop) / corsa;
-    apertura.style.setProperty("--avanzamento", Math.min(1, Math.max(0, p)).toFixed(4));
+    p = Math.min(1, Math.max(0, p));
+    apertura.style.setProperty("--avanzamento", p.toFixed(4));
+    /* La campana: zero ai due capi, uno in mezzo. L'esponente sotto uno
+       allarga la cima, cosi' la scheda sta al centro per un tratto invece
+       di toccare il massimo per un istante solo e ripartire. */
+    var presenza = Math.pow(Math.sin(Math.PI * p), 0.55);
+    apertura.style.setProperty("--presenza", presenza.toFixed(4));
   }
   function chiedi() {
     if (!inCoda) { inCoda = true; requestAnimationFrame(aggiorna); }
   }
   apertura.style.setProperty("--avanzamento", "0");
+  apertura.style.setProperty("--presenza", "0");
   window.addEventListener("scroll", chiedi, { passive: true });
   window.addEventListener("resize", chiedi);
   aggiorna();
