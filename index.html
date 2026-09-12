@@ -184,50 +184,56 @@
 
   /* ---------- apertura ---------- */
   /* ================= APERTURA CINEMATOGRAFICA =================
-     Una scena che resta ferma mentre la pagina scorre: il titolo si allarga e
-     si dissolve, la scheda scura entra da dietro. Non e' scroll-jacking - la
-     pagina scorre normalmente, e' la scena a stare incollata per due schermate.
+     Una sequenza in sei fasi, non una dissolvenza. I tempi sono quelli del
+     sito di ShiftPro, convertiti dalle unita' della sua timeline GSAP a
+     frazioni dello scorrimento (§ chiesto da Matteo: "stessi tempi
+     adattato"):
 
-     Tutto il movimento passa da due sole variabili, --avanzamento (0 -> 1) e
-     --mouse-x/y, scritte da uno script in fondo alla pagina. Con
-     prefers-reduced-motion lo script non parte proprio e la scena resta nel
-     suo stato finale, che e' gia' leggibile per intero. */
-  /* --avanzamento parte da 1, cioe' dalla scena gia' arrivata.
-     Se il JavaScript non gira - disattivato, bloccato, un errore altrove -
-     si vede la scheda con il telefono, che e' la meta' che vale. Partendo da
-     0 invece si sarebbe visto un riquadro vuoto per sempre: il valore di
-     riposo di un'animazione dev'essere lo stato leggibile, non quello
-     iniziale. Lo script lo riporta a 0 e lo guida appena parte. */
-  .apertura{ position:relative; z-index:1; height:180vh; --avanzamento:1; --presenza:1; --titolo:0; }
+        0 -> 18%   la scheda sale da sotto, il titolo si allarga e sfuma
+       18 -> 30%   la scheda si apre a tutto schermo
+       24 -> 44%   il telefono sale ruotando; poi lo scatto, le targhette
+                   a scalare, i testi ai lati
+       44 -> 63%   fermo: e' il tratto in cui si guarda
+       63 -> 72%   il contenuto esce verso l'alto
+       72 -> 87%   la scheda si ritira e torna arrotondata
+       87 -> 100%  la scheda scorre via
+
+     Ogni fase ha la sua variabile, scritta dallo script in fondo alla
+     pagina. Qui dentro non c'e' nessuna `transition`: il tempo lo da' lo
+     scorrimento, e una transizione in mezzo lo renderebbe molle. */
+  .apertura{
+    position:relative; z-index:1;
+    /* La corsa e' lunga come su ShiftPro (loro bloccano per 3200px). Misurata
+       in pixel e non in schermate: la sequenza ha un ritmo suo, che non deve
+       cambiare a seconda di quanto e' alto il telefono. */
+    height:calc(100svh + 2600px);
+    /* Valori di riposo: scena arrivata, contenuto visibile. Se il JavaScript
+       non gira si vede la scheda col telefono dentro, non un riquadro vuoto:
+       il valore di riposo di un'animazione dev'essere lo stato leggibile. */
+    --titolo:0; --carta:1; --pieno:0; --tel:1; --scatto:1;
+    --targhe:1; --lati:1; --uscita:0; --ritiro:0; --via:0;
+  }
   .scena{
-    /* `svh` e non `vh`: su iPhone la barra del browser si ritrae mentre
-       si scorre, e con `vh` la scena si allunga e si accorcia sotto le
-       dita. `svh` e' la misura piccola, quella che non cambia mai. */
+    /* `svh` e non `vh`: su iPhone la barra del browser si ritrae mentre si
+       scorre, e con `vh` la scena si allunga e accorcia sotto le dita. Con
+       `vh` era anche piu' alta della parte visibile, e uno sticky piu' alto
+       del suo contenitore non si incolla: da li' "sul PC si vede,
+       sull'iPhone no". */
     position:sticky; top:0; height:100svh; overflow:hidden;
     display:grid; place-items:center;
-    /* La scena si porta dietro il fondo suo, e non e' un vezzo.
-       L'alone del corpo e' `position:fixed`, cioe' incollato alla finestra:
-       finche' la pagina scorre normalmente non si nota, ma qui la scena resta
-       ferma per due schermate e in quel tratto si vedono due livelli di fondo
-       che non sono d'accordo - uno immobile rispetto alla finestra, uno
-       rispetto alla scena. Con un fondo proprio, mentre e' incollata si vede
-       una superficie sola (§ segnalato da Matteo). */
     background:
-      radial-gradient(980px 760px at 50% -12%, rgba(109,40,217,calc(.30 - var(--presenza,1) * .12)), transparent 62%),
-      radial-gradient(1100px 900px at 50% 50%, rgba(29,78,216,calc(.06 + var(--presenza,1) * .20)), transparent 66%),
+      radial-gradient(980px 760px at 50% -12%, rgba(109,40,217,calc(.30 - var(--carta,1) * .12)), transparent 62%),
+      radial-gradient(1100px 900px at 50% 50%, rgba(29,78,216,calc(.06 + var(--carta,1) * .20)), transparent 66%),
       radial-gradient(680px 560px at 98% 96%, rgba(15,118,110,.16), transparent 60%),
       var(--sfondo);
   }
-  /* Lo stacco verso la sezione dopo: senza, la scena finisce di netto e si
-     vede la cucitura fra il suo fondo e quello della pagina. */
   .scena::after{
     content:""; position:absolute; left:0; right:0; bottom:0; height:140px;
     pointer-events:none; z-index:45;
     background:linear-gradient(180deg, transparent, var(--sfondo));
+    opacity:calc(1 - var(--pieno,0));
   }
 
-  /* Grana della pellicola: rumore vero generato dall'SVG, non una texture da
-     scaricare. Toglie al fondo piatto quell'aria di gradiente generato. */
   .grana{
     position:absolute; inset:0; pointer-events:none; z-index:40;
     opacity:.05; mix-blend-mode:overlay;
@@ -243,14 +249,20 @@
     mask-image:radial-gradient(ellipse at center, #000 0%, transparent 70%);
   }
 
-  /* --- il blocco del titolo, che esce di scena scorrendo --- */
+  /* --- il titolo: si allarga, sfuma, si spegne --- */
   .titolo-blocco{
     position:absolute; inset:0; z-index:10; padding:0 24px; text-align:center;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    transform:scale(calc(1 + var(--avanzamento,0) * .22));
-    opacity:var(--titolo,0);
-    will-change:transform, opacity;
+    transform:scale(calc(1 + (1 - var(--titolo,0)) * .1));
+    filter:blur(calc((1 - var(--titolo,0)) * 14px));
+    /* Il fondo a .18 e' quello di ShiftPro, e da loro non si vede mai perche'
+       la scheda resta piena fino alla fine. Qui la scheda si ritira, e senza
+       il secondo fattore riaffiorerebbe un titolo fantasma dietro. Da quando
+       il contenuto esce, il titolo e' spento del tutto. */
+    opacity:calc((.18 + var(--titolo,0) * .82) * (1 - var(--uscita,0)));
+    will-change:transform, opacity, filter;
   }
+  .titolo-blocco[data-spento="1"]{ opacity:0; }
   .icona-apertura{
     width:72px; height:72px; border-radius:17px; margin-bottom:18px;
     box-shadow:0 12px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.08);
@@ -265,41 +277,37 @@
     font-size:clamp(2.7rem,7.2vw,5.6rem); line-height:.98; letter-spacing:-.045em;
     font-weight:850; margin:20px 0 16px; display:flex; flex-direction:column; align-items:center; gap:2px;
   }
-  /* Fuori dalla scheda il testo e' materia opaca: un'ombra portata, non un
-     bagliore. Il bagliore su fondo scuro fa subito presentazione aziendale. */
   .riga-opaca{ color:var(--testo); text-shadow:0 10px 30px rgba(255,255,255,.10), 0 2px 4px rgba(255,255,255,.06); }
   .riga-argento{
     background:linear-gradient(180deg, var(--testo) 0%, rgba(242,244,251,.42) 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
-    transform:translateZ(0);  /* senza questo WebKit taglia i discendenti */
+    transform:translateZ(0);
     filter:drop-shadow(0 10px 20px rgba(255,255,255,.10)) drop-shadow(0 2px 4px rgba(255,255,255,.07));
   }
   .occhiello{ color:var(--tenue); font-size:1.06rem; max-width:36em; margin:0 auto 26px; }
   .bottoni{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; }
   .nota-cta{ color:#7d859f; font-size:.82rem; margin-top:14px; }
 
-  /* --- la scheda profonda, che entra --- */
+  /* --- la scheda: sale, si apre a tutto schermo, si ritira, se ne va --- */
   .scheda{
-    position:relative; z-index:20; width:min(1180px, 92vw); height:min(76vh, 680px);
-    border-radius:36px; overflow:hidden;
+    position:relative; z-index:20;
+    /* Le misure passano da `calc` invece che da classi: cosi' l'apertura a
+       tutto schermo e il ritiro sono lo stesso movimento letto al contrario,
+       e non ci sono due stati che possono disallinearsi. */
+    width:calc(92vw + (100vw - 92vw) * var(--pieno,0));
+    height:calc(min(76svh,680px) + (100svh - min(76svh,680px)) * var(--pieno,0));
+    border-radius:calc(36px * (1 - var(--pieno,0)));
+    overflow:hidden;
     background:linear-gradient(145deg,#162C6D 0%, #0A101D 100%);
-    border:1px solid rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,calc(.05 * (1 - var(--pieno,0))));
     box-shadow:
       0 40px 100px -20px rgba(0,0,0,.9),
       0 20px 40px -20px rgba(0,0,0,.8),
       inset 0 1px 2px rgba(255,255,255,.2),
       inset 0 -2px 4px rgba(0,0,0,.8);
-    /* L'arco, non la salita. La scheda entra, si ingrandisce, e poi si
-       ritira lasciando di nuovo il fondo neutro prima della sezione dopo:
-       e' un momento con un inizio e una fine, non una cosa che cresce e
-       resta li'. --presenza vale 0 ai due capi e 1 in mezzo, e la calcola
-       lo script (§ come fa il sito di ShiftPro, indicato da Matteo). */
-    transform:scale(calc(.88 + var(--presenza,1) * .12));
-    opacity:var(--presenza,1);
-    will-change:transform, opacity;
+    transform:translateY(calc((1 - var(--carta,1)) * 120% - var(--via,0) * 130%));
+    will-change:transform, width, height;
   }
-  /* Il riflesso segue il cursore: e' la differenza fra una scheda disegnata e
-     una superficie. Sul telefono non succede niente e va benissimo cosi'. */
   .lucentezza{
     position:absolute; inset:0; border-radius:inherit; pointer-events:none; z-index:5;
     background:radial-gradient(800px circle at var(--mouse-x,50%) var(--mouse-y,50%), rgba(255,255,255,.06) 0%, transparent 40%);
@@ -310,6 +318,8 @@
     display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:24px;
     padding:36px 48px;
   }
+
+  /* --- i testi ai lati: entrano dai due bordi --- */
   .scheda-testo b{
     display:block; font-size:1.25rem; font-weight:800; letter-spacing:-.02em;
     background:linear-gradient(180deg,#fff 0%, #A1A1AA 100%);
@@ -317,10 +327,18 @@
     transform:translateZ(0); margin-bottom:8px;
   }
   .scheda-testo span{ display:block; color:rgba(255,255,255,.56); font-size:.95rem; line-height:1.5; max-width:19em; }
-  .scheda-testo.destra{ justify-self:end; text-align:right; }
+  .scheda-testo{
+    opacity:calc(var(--lati,1) * (1 - var(--uscita,0)));
+    will-change:transform, opacity;
+  }
+  .scheda-testo.sinistra{ transform:translate(calc((var(--lati,1) - 1) * 40px), calc(var(--uscita,0) * -30px)); }
+  .scheda-testo.destra{
+    justify-self:end; text-align:right;
+    transform:translate(calc((1 - var(--lati,1)) * 40px), calc(var(--uscita,0) * -30px));
+  }
   .scheda-testo.destra span{ margin-left:auto; }
 
-  /* --- il telefono --- */
+  /* --- il telefono: sale ruotando --- */
   .telefono{
     position:relative; width:264px; aspect-ratio:9/19.5; justify-self:center;
     border-radius:3rem; background:#111;
@@ -329,8 +347,14 @@
       inset 0 0 0 7px #000,
       0 40px 80px -15px rgba(0,0,0,.9),
       0 15px 25px -5px rgba(0,0,0,.7);
-    transform:translateY(calc((1 - var(--presenza,1)) * 30px));
-    will-change:transform;
+    transform-style:preserve-3d;
+    transform:
+      perspective(1000px)
+      translateY(calc((1 - var(--tel,1)) * 220px + var(--uscita,0) * -30px))
+      rotateX(calc((1 - var(--tel,1)) * 42deg))
+      scale(calc(.7 + var(--tel,1) * .3 - var(--uscita,0) * .08));
+    opacity:calc(var(--tel,1) * (1 - var(--uscita,0)));
+    will-change:transform, opacity;
   }
   .tasto{
     position:absolute; background:linear-gradient(90deg,#404040 0%, #171717 100%);
@@ -344,38 +368,13 @@
     position:absolute; inset:7px; border-radius:2.5rem; overflow:hidden; background:#050914;
     box-shadow:inset 0 0 15px rgba(0,0,0,1);
   }
-  .schermo img{ display:block; width:100%; height:100%; object-fit:cover; object-position:top; }
-
-  /* Le targhette che sembrano uscire dal telefono (§ come su ShiftPro,
-     indicato da Matteo). Sono le notifiche vere dell'app, quelle che ora
-     non scrivono piu' le cifre. Entrano con la scena e si allontanano un
-     po' dal telefono mentre lo fanno: e' quel piccolo scarto a far sembrare
-     che galleggino davanti invece che esserci disegnate sopra. */
-  .targa{
-    position:absolute; z-index:6; display:flex; align-items:center; gap:11px;
-    border-radius:15px; padding:11px 13px; white-space:nowrap;
-    background:linear-gradient(135deg, rgba(255,255,255,.09) 0%, rgba(255,255,255,.015) 100%);
-    -webkit-backdrop-filter:blur(22px); backdrop-filter:blur(22px);
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,.1),
-      0 25px 50px -12px rgba(0,0,0,.8),
-      inset 0 1px 1px rgba(255,255,255,.2);
-    opacity:var(--presenza,1);
+  /* Lo scatto entra dopo la scocca, con un filo di ingrandimento che si
+     chiude: e' quello a far sembrare che lo schermo si accenda. */
+  .schermo img{
+    display:block; width:100%; height:100%; object-fit:cover; object-position:top;
+    opacity:var(--scatto,1);
+    transform:scale(calc(1.06 - var(--scatto,1) * .06));
     will-change:transform, opacity;
-  }
-  .targa b{ display:block; color:#fff; font-size:12.5px; font-weight:700; letter-spacing:-.01em; }
-  .targa small{ display:block; color:rgba(200,215,255,.62); font-size:11px; font-weight:500; }
-  .targa i{
-    width:34px; height:34px; border-radius:50%; flex:none;
-    display:flex; align-items:center; justify-content:center;
-    border:1px solid rgba(255,255,255,.18);
-  }
-  .targa svg{ width:16px; height:16px; fill:none; stroke:#fff; stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round; }
-  .targa-alta{ top:14px; left:-18px; transform:translateX(calc((1 - var(--presenza,1)) * 16px)); }
-  .targa-bassa{ bottom:30px; right:-18px; transform:translateX(calc((var(--presenza,1) - 1) * 16px)); }
-  @media (min-width:1024px){
-    .targa-alta{ top:52px; left:-92px; }
-    .targa-bassa{ bottom:78px; right:-92px; }
   }
   .riflesso{
     position:absolute; inset:0; z-index:3; pointer-events:none;
@@ -387,12 +386,52 @@
     box-shadow:inset 0 -1px 2px rgba(255,255,255,.1);
   }
 
+  /* --- le targhette: salgono a scalare, una dopo l'altra --- */
+  .targa{
+    position:absolute; z-index:6; display:flex; align-items:center; gap:11px;
+    border-radius:15px; padding:11px 13px; white-space:nowrap;
+    background:linear-gradient(135deg, rgba(255,255,255,.09) 0%, rgba(255,255,255,.015) 100%);
+    -webkit-backdrop-filter:blur(22px); backdrop-filter:blur(22px);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.1),
+      0 25px 50px -12px rgba(0,0,0,.8),
+      inset 0 1px 1px rgba(255,255,255,.2);
+    will-change:transform, opacity;
+  }
+  .targa b{ display:block; color:#fff; font-size:12.5px; font-weight:700; letter-spacing:-.01em; }
+  .targa small{ display:block; color:rgba(200,215,255,.62); font-size:11px; font-weight:500; }
+  .targa i{
+    width:34px; height:34px; border-radius:50%; flex:none;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid rgba(255,255,255,.18);
+  }
+  .targa svg{ width:16px; height:16px; fill:none; stroke:#fff; stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round; }
+  .targa-alta{
+    top:14px; left:-18px;
+    opacity:calc(var(--targhe,1) * (1 - var(--uscita,0)));
+    transform:translateY(calc((1 - var(--targhe,1)) * 80px + var(--uscita,0) * -30px))
+              scale(calc(.75 + var(--targhe,1) * .25 - var(--uscita,0) * .08));
+  }
+  /* La seconda parte un filo dopo la prima: e' lo scarto a farle sembrare
+     due cose che arrivano, invece di un blocco solo che compare. */
+  .targa-bassa{
+    bottom:30px; right:-18px;
+    opacity:calc(var(--targhe2,1) * (1 - var(--uscita,0)));
+    transform:translateY(calc((1 - var(--targhe2,1)) * 80px + var(--uscita,0) * -30px))
+              scale(calc(.75 + var(--targhe2,1) * .25 - var(--uscita,0) * .08));
+  }
+  @media (min-width:1024px){
+    .targa-alta{ top:52px; left:-92px; }
+    .targa-bassa{ bottom:78px; right:-92px; }
+  }
+
   @media (prefers-reduced-motion: reduce){
     .apertura{ height:auto; }
     .scena{ position:static; height:auto; padding:76px 0 48px; gap:44px; }
-    .titolo-blocco{ position:static; transform:none; opacity:1; }
-    .scheda{ transform:none; opacity:1; height:auto; }
-    .telefono{ transform:none; }
+    .titolo-blocco{ position:static; transform:none; opacity:1; filter:none; }
+    .scheda{ transform:none; height:auto; }
+    .telefono{ transform:none; opacity:1; }
+    .targa{ opacity:1; transform:none; }
   }
 
   /* ---------- striscia di fatti ---------- */
@@ -1090,15 +1129,22 @@
 
 
 <script>
-/* La coreografia dell'apertura. Nessuna libreria: GSAP avrebbe portato
-   settanta chilobyte e una richiesta a un CDN, e questo sito non ne fa
-   nessuna a terzi - e' scritto nella verifica di sicurezza, quindi resta
-   vero.
+/* La coreografia dell'apertura, in sei fasi.
 
-   Tutto passa da una variabile sola, --avanzamento da 0 a 1, letta dal CSS
-   qui sopra: il titolo si allarga e sfuma, la scheda entra, il telefono
-   sale. Chi ha chiesto meno movimento nelle impostazioni di sistema non
-   entra mai qui dentro e vede la scena gia' al suo stato finale. */
+   Niente librerie. Il sito di ShiftPro fa la stessa sequenza con GSAP preso
+   da un CDN; qui non si puo', perche' questo sito non fa nessuna richiesta a
+   terzi ed e' una cosa scritta nella verifica di sicurezza. Le fasi e i tempi
+   sono gli stessi, convertiti dalle unita' della loro timeline a frazioni
+   dello scorrimento.
+
+   Il meccanismo e' uno solo: si calcola quanto si e' scorso dentro
+   l'apertura, da 0 a 1, e da quel numero si ricavano dieci variabili CSS.
+   Nel foglio di stile non c'e' nessuna `transition`: il tempo lo da' il
+   dito, e una transizione in mezzo lo renderebbe molle.
+
+   Chi ha chiesto meno movimento nelle impostazioni di sistema non entra qui
+   dentro: le variabili restano ai loro valori di riposo, che sono la scena
+   gia' arrivata e leggibile. */
 (function () {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   var apertura = document.getElementById("apertura");
@@ -1106,47 +1152,78 @@
   if (!apertura) return;
 
   /* La curva a S: 0 prima di `da`, 1 dopo `a`, e in mezzo una salita che
-     parte piano e arriva piano. E' la stessa che usano i motori grafici, e
-     costa tre moltiplicazioni. */
+     parte piano e arriva piano. E' la stessa dei motori grafici e costa tre
+     moltiplicazioni. Una dissolvenza lineare si nota proprio perche' e'
+     lineare. */
   function passo(da, a, x) {
     var t = Math.min(1, Math.max(0, (x - da) / (a - da)));
     return t * t * (3 - 2 * t);
   }
+
+  /* Le fasi, negli stessi rapporti della timeline di ShiftPro.
+
+     0 -> 18%   la scheda sale da sotto, il titolo si allarga e sfuma
+     18 -> 30%  la scheda si apre a tutto schermo
+     24 -> 44%  il telefono sale ruotando, poi lo scatto, le targhette a
+                scalare, i testi ai lati
+     44 -> 63%  fermo: e' il tratto in cui si guarda
+     63 -> 72%  il contenuto esce verso l'alto
+     72 -> 87%  la scheda si ritira e torna arrotondata
+     87 -> 100% la scheda scorre via                                        */
+  var FASI = {
+    titolo:  [0.02, 0.20],
+    carta:   [0.00, 0.18],
+    pieno:   [0.18, 0.30],
+    tel:     [0.24, 0.44],
+    scatto:  [0.30, 0.43],
+    targhe:  [0.29, 0.42],
+    targhe2: [0.32, 0.45],   // la seconda parte un filo dopo: arrivano, non compaiono
+    lati:    [0.31, 0.44],
+    uscita:  [0.63, 0.72],
+    ritiro:  [0.72, 0.87],
+    via:     [0.87, 1.00]
+  };
 
   var inCoda = false;
   function aggiorna() {
     inCoda = false;
     var corsa = apertura.offsetHeight - window.innerHeight;
     if (corsa <= 0) return;
-    var p = (window.scrollY - apertura.offsetTop) / corsa;
-    p = Math.min(1, Math.max(0, p));
-    apertura.style.setProperty("--avanzamento", p.toFixed(4));
-    /* La curva dell'entrata, e vale la pena spiegarla perche' la prima
-       versione era sbagliata in modo non ovvio.
-       
-       Prima usavo `sin(PI*p)` elevato a 0.55. L'esponente sotto uno allarga
-       la cima - che era quello che volevo - ma **impenna l'inizio**: a un
-       decimo dello scorrimento la scheda era gia' a meta' opacita' e quasi a
-       grandezza piena. Entrava tutta nei primi centimetri e poi per il resto
-       della corsa non succedeva piu' niente (§ segnalato da Matteo:
-       "un'apparizione troppo veloce").
-       
-       Adesso e' un trapezio con i bordi addolciti: niente per il primo
-       sesto - il tempo che il titolo se ne vada - poi la salita, poi un
-       tratto pieno al centro, poi la discesa. `passo` e' la curva a S
-       classica (3t^2 - 2t^3): parte piano, accelera, arriva piano. */
-    var presenza = Math.min(passo(0.16, 0.48, p), 1 - passo(0.60, 0.93, p));
-    apertura.style.setProperty("--presenza", presenza.toFixed(4));
-    /* Il titolo se ne va con la stessa curva invece che con una retta: una
-       dissolvenza lineare si nota proprio perche' e' lineare. */
-    apertura.style.setProperty("--titolo", (1 - passo(0.02, 0.30, p)).toFixed(4));
+    var p = Math.min(1, Math.max(0, (window.scrollY - apertura.offsetTop) / corsa));
+
+    /* Il ritiro legge al contrario: mentre `ritiro` sale da 0 a 1, la scheda
+       torna dalle misure piene a quelle raccolte. Per questo `pieno` non e'
+       una fase sola ma la differenza fra l'apertura e il ritiro: cosi'
+       l'andata e il ritorno sono lo stesso movimento letto nei due versi, e
+       non ci sono due stati che possono disallinearsi. */
+    var apre = passo(FASI.pieno[0], FASI.pieno[1], p);
+    var ritira = passo(FASI.ritiro[0], FASI.ritiro[1], p);
+
+    var valori = {
+      "--avanzamento": p,
+      "--titolo": 1 - passo(FASI.titolo[0], FASI.titolo[1], p),
+      "--carta": passo(FASI.carta[0], FASI.carta[1], p),
+      "--pieno": Math.max(0, apre - ritira),
+      "--tel": passo(FASI.tel[0], FASI.tel[1], p),
+      "--scatto": passo(FASI.scatto[0], FASI.scatto[1], p),
+      "--targhe": passo(FASI.targhe[0], FASI.targhe[1], p),
+      "--targhe2": passo(FASI.targhe2[0], FASI.targhe2[1], p),
+      "--lati": passo(FASI.lati[0], FASI.lati[1], p),
+      "--uscita": passo(FASI.uscita[0], FASI.uscita[1], p),
+      "--via": passo(FASI.via[0], FASI.via[1], p)
+    };
+    for (var nome in valori) {
+      apertura.style.setProperty(nome, valori[nome].toFixed(4));
+    }
   }
   function chiedi() {
     if (!inCoda) { inCoda = true; requestAnimationFrame(aggiorna); }
   }
-  apertura.style.setProperty("--avanzamento", "0");
-  apertura.style.setProperty("--presenza", "0");
-  apertura.style.setProperty("--titolo", "1");
+
+  /* Da qui in poi le variabili le scrive lo script. Prima erano ai valori di
+     riposo del foglio di stile, che mostrano la scena gia' arrivata: e' quello
+     che si vede se il JavaScript non gira, e dev'essere uno stato leggibile,
+     non un riquadro vuoto. */
   window.addEventListener("scroll", chiedi, { passive: true });
   window.addEventListener("resize", chiedi);
   aggiorna();
