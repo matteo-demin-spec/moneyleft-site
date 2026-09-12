@@ -198,7 +198,7 @@
      0 invece si sarebbe visto un riquadro vuoto per sempre: il valore di
      riposo di un'animazione dev'essere lo stato leggibile, non quello
      iniziale. Lo script lo riporta a 0 e lo guida appena parte. */
-  .apertura{ position:relative; z-index:1; height:180vh; --avanzamento:1; --presenza:1; }
+  .apertura{ position:relative; z-index:1; height:180vh; --avanzamento:1; --presenza:1; --titolo:0; }
   .scena{
     /* `svh` e non `vh`: su iPhone la barra del browser si ritrae mentre
        si scorre, e con `vh` la scena si allunga e si accorcia sotto le
@@ -248,7 +248,7 @@
     position:absolute; inset:0; z-index:10; padding:0 24px; text-align:center;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     transform:scale(calc(1 + var(--avanzamento,0) * .22));
-    opacity:calc(1 - var(--avanzamento,0) * 3.2);
+    opacity:var(--titolo,0);
     will-change:transform, opacity;
   }
   .icona-apertura{
@@ -1105,6 +1105,14 @@
   var scheda = document.getElementById("scheda");
   if (!apertura) return;
 
+  /* La curva a S: 0 prima di `da`, 1 dopo `a`, e in mezzo una salita che
+     parte piano e arriva piano. E' la stessa che usano i motori grafici, e
+     costa tre moltiplicazioni. */
+  function passo(da, a, x) {
+    var t = Math.min(1, Math.max(0, (x - da) / (a - da)));
+    return t * t * (3 - 2 * t);
+  }
+
   var inCoda = false;
   function aggiorna() {
     inCoda = false;
@@ -1113,17 +1121,32 @@
     var p = (window.scrollY - apertura.offsetTop) / corsa;
     p = Math.min(1, Math.max(0, p));
     apertura.style.setProperty("--avanzamento", p.toFixed(4));
-    /* La campana: zero ai due capi, uno in mezzo. L'esponente sotto uno
-       allarga la cima, cosi' la scheda sta al centro per un tratto invece
-       di toccare il massimo per un istante solo e ripartire. */
-    var presenza = Math.pow(Math.sin(Math.PI * p), 0.55);
+    /* La curva dell'entrata, e vale la pena spiegarla perche' la prima
+       versione era sbagliata in modo non ovvio.
+       
+       Prima usavo `sin(PI*p)` elevato a 0.55. L'esponente sotto uno allarga
+       la cima - che era quello che volevo - ma **impenna l'inizio**: a un
+       decimo dello scorrimento la scheda era gia' a meta' opacita' e quasi a
+       grandezza piena. Entrava tutta nei primi centimetri e poi per il resto
+       della corsa non succedeva piu' niente (§ segnalato da Matteo:
+       "un'apparizione troppo veloce").
+       
+       Adesso e' un trapezio con i bordi addolciti: niente per il primo
+       sesto - il tempo che il titolo se ne vada - poi la salita, poi un
+       tratto pieno al centro, poi la discesa. `passo` e' la curva a S
+       classica (3t^2 - 2t^3): parte piano, accelera, arriva piano. */
+    var presenza = Math.min(passo(0.16, 0.48, p), 1 - passo(0.60, 0.93, p));
     apertura.style.setProperty("--presenza", presenza.toFixed(4));
+    /* Il titolo se ne va con la stessa curva invece che con una retta: una
+       dissolvenza lineare si nota proprio perche' e' lineare. */
+    apertura.style.setProperty("--titolo", (1 - passo(0.02, 0.30, p)).toFixed(4));
   }
   function chiedi() {
     if (!inCoda) { inCoda = true; requestAnimationFrame(aggiorna); }
   }
   apertura.style.setProperty("--avanzamento", "0");
   apertura.style.setProperty("--presenza", "0");
+  apertura.style.setProperty("--titolo", "1");
   window.addEventListener("scroll", chiedi, { passive: true });
   window.addEventListener("resize", chiedi);
   aggiorna();
