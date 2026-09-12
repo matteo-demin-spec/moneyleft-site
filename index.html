@@ -94,7 +94,15 @@
     font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    /* `clip` e non `hidden`, ed e' la differenza fra un'animazione che va e
+       una che non parte. `overflow-x:hidden` sul corpo lo trasforma in un
+       contenitore di scorrimento, e cosi' facendo **rompe position:sticky**
+       per tutto quello che sta dentro: su Safari sempre, su Chrome desktop
+       quasi mai - da qui "sul PC si vede, sull'iPhone no"
+       (§ segnalato da Matteo).
+       `clip` taglia allo stesso modo il traboccamento orizzontale ma non
+       crea nessun contenitore, quindi lo sticky continua a funzionare. */
+    overflow-x:clip;
   }
   img{ max-width:100%; display:block; }
   a{ color:inherit; text-decoration:none; }
