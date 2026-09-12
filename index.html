@@ -192,7 +192,10 @@
      iniziale. Lo script lo riporta a 0 e lo guida appena parte. */
   .apertura{ position:relative; z-index:1; height:180vh; --avanzamento:1; --presenza:1; }
   .scena{
-    position:sticky; top:0; height:100vh; overflow:hidden;
+    /* `svh` e non `vh`: su iPhone la barra del browser si ritrae mentre
+       si scorre, e con `vh` la scena si allunga e si accorcia sotto le
+       dita. `svh` e' la misura piccola, quella che non cambia mai. */
+    position:sticky; top:0; height:100svh; overflow:hidden;
     display:grid; place-items:center;
     /* La scena si porta dietro il fondo suo, e non e' un vezzo.
        L'alone del corpo e' `position:fixed`, cioe' incollato alla finestra:
@@ -334,6 +337,38 @@
     box-shadow:inset 0 0 15px rgba(0,0,0,1);
   }
   .schermo img{ display:block; width:100%; height:100%; object-fit:cover; object-position:top; }
+
+  /* Le targhette che sembrano uscire dal telefono (§ come su ShiftPro,
+     indicato da Matteo). Sono le notifiche vere dell'app, quelle che ora
+     non scrivono piu' le cifre. Entrano con la scena e si allontanano un
+     po' dal telefono mentre lo fanno: e' quel piccolo scarto a far sembrare
+     che galleggino davanti invece che esserci disegnate sopra. */
+  .targa{
+    position:absolute; z-index:6; display:flex; align-items:center; gap:11px;
+    border-radius:15px; padding:11px 13px; white-space:nowrap;
+    background:linear-gradient(135deg, rgba(255,255,255,.09) 0%, rgba(255,255,255,.015) 100%);
+    -webkit-backdrop-filter:blur(22px); backdrop-filter:blur(22px);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.1),
+      0 25px 50px -12px rgba(0,0,0,.8),
+      inset 0 1px 1px rgba(255,255,255,.2);
+    opacity:var(--presenza,1);
+    will-change:transform, opacity;
+  }
+  .targa b{ display:block; color:#fff; font-size:12.5px; font-weight:700; letter-spacing:-.01em; }
+  .targa small{ display:block; color:rgba(200,215,255,.62); font-size:11px; font-weight:500; }
+  .targa i{
+    width:34px; height:34px; border-radius:50%; flex:none;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid rgba(255,255,255,.18);
+  }
+  .targa svg{ width:16px; height:16px; fill:none; stroke:#fff; stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round; }
+  .targa-alta{ top:14px; left:-18px; transform:translateX(calc((1 - var(--presenza,1)) * 16px)); }
+  .targa-bassa{ bottom:30px; right:-18px; transform:translateX(calc((var(--presenza,1) - 1) * 16px)); }
+  @media (min-width:1024px){
+    .targa-alta{ top:52px; left:-92px; }
+    .targa-bassa{ bottom:78px; right:-92px; }
+  }
   .riflesso{
     position:absolute; inset:0; z-index:3; pointer-events:none;
     background:linear-gradient(110deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,0) 45%);
@@ -513,9 +548,12 @@
 
   /* ---------- schermi stretti ---------- */
   @media (max-width:900px){
-    .scheda-griglia{ grid-template-columns:1fr; justify-items:center; gap:18px; padding:22px; }
+    .scheda-griglia{ grid-template-columns:1fr; justify-items:center; gap:18px; padding:24px; }
+    /* I testi ai lati spariscono, le targhette no: sono loro a raccontare
+       cosa fa l'app quando non c'e' spazio per scriverlo. */
     .scheda-testo{ display:none; }
-    .telefono{ width:232px; }
+    .scheda{ height:min(78svh,640px); }
+    .telefono{ width:216px; }
     .fatti .wrap{ grid-template-columns:repeat(2,1fr); }
     .griglia{ grid-template-columns:1fr 1fr; }
     .riga{ grid-template-columns:1fr; gap:32px; margin-top:64px; }
@@ -527,11 +565,19 @@
     /* Sul telefono l'apertura era altissima: titolo grande, paragrafo lungo e
        due bottoni spingevano la schermata dell'app sotto due schermate di
        scorrimento. Qui si stringe tutto quel blocco. */
-    .apertura{ height:auto; }
-    .scena{ position:static; height:auto; padding:34px 0 26px; display:flex; flex-direction:column; gap:34px; }
-    .titolo-blocco{ position:static; transform:none; opacity:1; }
-    .scheda{ transform:none; opacity:1; height:auto; width:100%; border-radius:28px; }
-    .telefono{ transform:none; width:214px; }
+    /* L'animazione resta accesa anche qui (§ segnalato da Matteo: da
+       iPhone non si vedeva niente). Spegnerla sotto una certa larghezza era
+       una scelta sbagliata: la larghezza non dice niente su cosa il
+       dispositivo sappia fare, e il telefono e' proprio dove la gente guarda
+       il sito. Il ripiego vero e' uno solo, prefers-reduced-motion, ed e'
+       piu' in basso.
+
+       Quello che cambia sul telefono e' la MISURA, non il comportamento: la
+       scheda si stringe, il telefono si rimpicciolisce, i testi ai lati si
+       tolgono perche' non ci stanno. La scena resta una scena. */
+    .scheda{ width:94vw; height:min(80svh,620px); border-radius:28px; }
+    .telefono{ width:192px; }
+    .scheda-griglia{ padding:20px 14px; }
     h1{ gap:0; }
     h1{ font-size:clamp(2.15rem,8.4vw,2.7rem); margin:16px 0 14px; }
     .occhiello{ font-size:.97rem; margin-bottom:20px; }
@@ -613,6 +659,14 @@
             <div class="isola" aria-hidden="true"></div>
             <div class="riflesso" aria-hidden="true"></div>
           </div>
+            <div class="targa targa-alta">
+              <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 20h16"/></svg></i>
+              <span><b>Stipendio</b><small>arriva domani</small></span>
+            </div>
+            <div class="targa targa-bassa">
+              <i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></i>
+              <span><b>Rata Auto</b><small>addebitata il 15</small></span>
+            </div>
         </div>
 
         <div class="scheda-testo destra">
