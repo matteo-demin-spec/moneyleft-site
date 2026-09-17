@@ -641,6 +641,34 @@
     .chiusura .wrap{ padding:40px 22px; border-radius:24px; }
     footer .legami{ margin-left:0; }
   }
+
+  /* ---- Il video, sopra le funzioni -----------------------------------
+     Sta qui perche' e' il primo posto in cui chi scorre ha gia' capito
+     cosa fa l'app e vuole vederla muoversi. Servito da questo sito e non
+     incorporato da YouTube: un iframe sarebbe l'unica richiesta a un
+     dominio terzo di tutto il sito, e manderebbe l'IP di ogni visitatore
+     a qualcun altro. Nove megabyte, non i ventotto del 4K.
+     Parte da solo, muto e in ciclo, perche' senza audio e senza comandi
+     e' una figura che si muove, non un filmato che aggredisce. Chi ha
+     chiesto meno animazioni non lo vede partire: resta il fotogramma. */
+  .vetrina-video{ padding: calc(var(--riga) * 2) 0 0; }
+  .vetrina-video .telaio{
+    max-width: 300px; margin: 0 auto;
+    border-radius: 34px; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,.28), 0 2px 8px rgba(0,0,0,.12);
+    background: #fff;
+  }
+  /* Le proporzioni dichiarate, non dedotte dal file: prima che il video
+     sia scaricato il riquadro ha gia' la sua forma, e la pagina non salta
+     sotto le dita di chi sta scorrendo. */
+  .vetrina-video video{ display:block; width:100%; height:auto; aspect-ratio: 9 / 16; }
+  .vetrina-video .didascalia{
+    text-align:center; margin-top: 14px; font-size:.92rem; opacity:.72;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .vetrina-video video{ display:none; }
+    .vetrina-video .telaio{ background: url(video/moneyleft-poster.jpg) center/cover; aspect-ratio: 9/16; }
+  }
 </style>
 </head>
 <body>
@@ -738,6 +766,19 @@
     <div class="fatto compare"><b>I dati restano tuoi</b><span>Esportazione e backup completo gratuiti, per sempre.</span></div>
   </div>
 </div>
+
+
+<!-- ============================ IL VIDEO ============================ -->
+<section class="vetrina-video">
+  <div class="wrap centro compare">
+    <div class="telaio">
+      <video src="video/moneyleft.mp4" poster="video/moneyleft-poster.jpg"
+             autoplay muted loop playsinline preload="metadata"
+             aria-label="MoneyLeft in venticinque secondi: il ciclo di paga, i conti, il resoconto, le rate e i movimenti."></video>
+    </div>
+    <p class="didascalia">Venticinque secondi, senza audio.</p>
+  </div>
+</section>
 
 <!-- ============================ FUNZIONI ============================ -->
 <section id="funzioni">
