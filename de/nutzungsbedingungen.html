@@ -55,13 +55,19 @@
   li{ margin:4px 0; }
   .evidenza{ background:rgba(124,77,239,.09); border-radius:12px; padding:14px 16px; font-size:.95rem; margin-top:10px; }
   nav.top{ margin-bottom:8px; font-size:.9rem; display:flow-root; }
-  nav.top .lingua{ float:right; }
+  nav.top .lingua{ float:right; display:inline-flex; align-items:center; gap:2px;
+    padding:3px; border:1px solid var(--bordo); border-radius:9px;
+    font-size:.72rem; font-weight:600; letter-spacing:.04em; }
+  nav.top .lingua a, nav.top .lingua .qui{ padding:3px 7px; border-radius:6px; line-height:1; }
+  nav.top .lingua a{ color:var(--grigio); text-decoration:none; }
+  nav.top .lingua a:hover{ color:var(--viola); background:rgba(124,77,239,.08); }
+  nav.top .lingua .qui{ color:#fff; background:var(--viola); }
   footer{ margin-top:40px; padding-top:16px; border-top:1px solid var(--bordo); color:#9aa0ad; font-size:.8rem; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <nav class="top"><a href="index.html">&larr; MoneyLeft</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html">Datenschutzerkl&auml;rung</a> &nbsp;&middot;&nbsp; <a href="hilfe.html">Hilfe</a><span class="lingua"><a href="../en/terms.html" hreflang="en" lang="en">English</a> &nbsp;&middot;&nbsp; <a href="../termini.html" hreflang="it" lang="it">Italiano</a></span></nav>
+  <nav class="top"><a href="index.html">&larr; MoneyLeft</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html">Datenschutzerkl&auml;rung</a> &nbsp;&middot;&nbsp; <a href="hilfe.html">Hilfe</a><span class="lingua"><a href="../termini.html" hreflang="it" lang="it" aria-label="Italiano">IT</a><span class="qui" aria-current="true" aria-label="Deutsch">DE</span><a href="../en/terms.html" hreflang="en" lang="en" aria-label="English">EN</a></span></nav>
   <header>
     <h1>Nutzungsbedingungen</h1>
     <p class="sub">Die Nutzungsregeln von MoneyLeft.</p>

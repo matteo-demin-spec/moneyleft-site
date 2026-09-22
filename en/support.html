@@ -55,7 +55,13 @@
   li{ margin:4px 0; }
   .evidenza{ background:rgba(124,77,239,.09); border-radius:12px; padding:14px 16px; font-size:.95rem; margin-top:10px; }
   nav.top{ margin-bottom:8px; font-size:.9rem; display:flow-root; }
-  nav.top .lingua{ float:right; }
+  nav.top .lingua{ float:right; display:inline-flex; align-items:center; gap:2px;
+    padding:3px; border:1px solid var(--bordo); border-radius:9px;
+    font-size:.72rem; font-weight:600; letter-spacing:.04em; }
+  nav.top .lingua a, nav.top .lingua .qui{ padding:3px 7px; border-radius:6px; line-height:1; }
+  nav.top .lingua a{ color:var(--grigio); text-decoration:none; }
+  nav.top .lingua a:hover{ color:var(--viola); background:rgba(124,77,239,.08); }
+  nav.top .lingua .qui{ color:#fff; background:var(--viola); }
   footer{ margin-top:40px; padding-top:16px; border-top:1px solid var(--bordo); color:#9aa0ad; font-size:.8rem; }
   .hero{ text-align:center; padding:8px 0 4px; }
   .logo{ width:96px; height:96px; border-radius:22px; margin:0 auto 14px; display:block; box-shadow:0 8px 24px rgba(122,85,204,.26); }
@@ -71,7 +77,7 @@
 <body>
 <div class="wrap">
 
-  <nav class="top"><a href="./">&larr; MoneyLeft</a> &nbsp;&middot;&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="terms.html">Terms of Service</a><span class="lingua"><a href="../de/hilfe.html" hreflang="de" lang="de">Deutsch</a> &nbsp;&middot;&nbsp; <a href="../assistenza.html" hreflang="it" lang="it">Italiano</a></span></nav>
+  <nav class="top"><a href="./">&larr; MoneyLeft</a> &nbsp;&middot;&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="terms.html">Terms of Service</a><span class="lingua"><a href="../assistenza.html" hreflang="it" lang="it" aria-label="Italiano">IT</a><a href="../de/hilfe.html" hreflang="de" lang="de" aria-label="Deutsch">DE</a><span class="qui" aria-current="true" aria-label="English">EN</span></span></nav>
   <header class="hero">
     <img class="logo" src="../img/icona-180.png" alt="MoneyLeft" width="96" height="96">
     <h1>MoneyLeft</h1>
