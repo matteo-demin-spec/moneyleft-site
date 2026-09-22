@@ -54,10 +54,19 @@
   ul{ margin:8px 0; padding-left:20px; color:#3a3e4b; }
   li{ margin:4px 0; }
   .evidenza{ background:rgba(124,77,239,.09); border-radius:12px; padding:14px 16px; font-size:.95rem; margin-top:10px; }
-  nav.top{ margin-bottom:8px; font-size:.9rem; display:flow-root; }
-  nav.top .lingua{ float:right; display:inline-flex; align-items:center; gap:2px;
+  nav.top{ margin-bottom:18px; font-size:.9rem; display:flex;
+    align-items:center; justify-content:space-between; gap:12px; }
+  nav.top .indietro{ display:inline-flex; align-items:center; gap:6px;
+    color:var(--grigio); text-decoration:none; }
+  nav.top .indietro:hover{ color:var(--viola); }
+  nav.top .lingua{ display:inline-flex; align-items:center; gap:2px;
     padding:3px; border:1px solid var(--bordo); border-radius:9px;
-    font-size:.72rem; font-weight:600; letter-spacing:.04em; }
+    font-size:.72rem; font-weight:600; letter-spacing:.04em; flex:none; }
+  header .fratelli{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  header .fratelli a{ border:1px solid var(--bordo); border-radius:999px;
+    padding:6px 13px; font-size:.82rem; color:var(--grigio); background:#fff;
+    text-decoration:none; }
+  header .fratelli a:hover{ color:var(--viola); border-color:var(--viola); }
   nav.top .lingua a, nav.top .lingua .qui{ padding:3px 7px; border-radius:6px; line-height:1; }
   nav.top .lingua a{ color:var(--grigio); text-decoration:none; }
   nav.top .lingua a:hover{ color:var(--viola); background:rgba(124,77,239,.08); }
@@ -67,11 +76,12 @@
 </head>
 <body>
 <div class="wrap">
-  <nav class="top"><a href="./">&larr; MoneyLeft</a> &nbsp;&middot;&nbsp; <a href="terms.html">Terms of Service</a> &nbsp;&middot;&nbsp; <a href="support.html">Support</a><span class="lingua"><a href="../privacy.html" hreflang="it" lang="it" aria-label="Italiano">IT</a><a href="../de/datenschutz.html" hreflang="de" lang="de" aria-label="Deutsch">DE</a><span class="qui" aria-current="true" aria-label="English">EN</span></span></nav>
+  <nav class="top"><a class="indietro" href="./">&larr; MoneyLeft</a><span class="lingua"><a href="../privacy.html" hreflang="it" lang="it" aria-label="Italiano">IT</a><a href="../de/datenschutz.html" hreflang="de" lang="de" aria-label="Deutsch">DE</a><span class="qui" aria-current="true" aria-label="English">EN</span></span></nav>
   <header>
     <h1>Privacy Policy</h1>
     <p class="sub">How MoneyLeft handles your data.</p>
     <p class="meta">Last updated: 13 September 2026</p>
+    <nav class="fratelli"><a href="terms.html">Terms of Service</a><a href="support.html">Support</a></nav>
   </header>
   <section>
     <h2>No data is collected, unless you choose to sync.</h2>

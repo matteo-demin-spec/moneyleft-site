@@ -47,7 +47,11 @@
   .esito.male{ color:var(--rosso); }
   .esito.bene{ color:var(--verde); }
   .evidenza{ background:rgba(124,77,239,.09); border-radius:12px; padding:14px 16px; font-size:.93rem; }
-  nav.top{ margin-bottom:8px; font-size:.9rem; }
+  nav.top{ margin-bottom:18px; font-size:.9rem; display:flex;
+    align-items:center; gap:18px; }
+  nav.top a{ color:var(--grigio); text-decoration:none; }
+  nav.top a:hover{ color:var(--viola); }
+  nav.top .indietro{ display:inline-flex; align-items:center; gap:6px; }
   a{ color:var(--viola); }
   footer{ margin-top:32px; padding-top:16px; border-top:1px solid var(--bordo); color:#9aa0ad; font-size:.8rem; text-align:center; }
   [hidden]{ display:none !important; }
@@ -56,7 +60,7 @@
 <body>
 <div class="wrap">
 
-  <nav class="top"><a href="./">&larr; MoneyLeft</a> &nbsp;&middot;&nbsp; <a href="assistenza.html">Assistenza</a></nav>
+  <nav class="top"><a class="indietro" href="./">&larr; MoneyLeft</a><a href="assistenza.html">Assistenza</a></nav>
 
   <header>
     <img class="logo" src="img/icona-180.png" alt="MoneyLeft" width="88" height="88">
