@@ -2,67 +2,111 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://moneyleft.it/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/"/>
+    <loc>https://moneyleft.it/de/</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/"/>
+    <lastmod>2026-09-22</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/en/</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/"/>
+    <lastmod>2026-09-22</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/"/>
     <lastmod>2026-09-22</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://moneyleft.it/en/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/"/>
+    <loc>https://moneyleft.it/de/datenschutz.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/datenschutz.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/privacy.html"/>
     <lastmod>2026-09-22</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://moneyleft.it/assistenza.html</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/assistenza.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/support.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/assistenza.html"/>
-    <lastmod>2026-09-22</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://moneyleft.it/en/support.html</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/assistenza.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/support.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/assistenza.html"/>
+    <loc>https://moneyleft.it/en/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/datenschutz.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/privacy.html"/>
     <lastmod>2026-09-22</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://moneyleft.it/privacy.html</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/datenschutz.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/privacy.html"/>
     <lastmod>2026-09-22</lastmod>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://moneyleft.it/en/privacy.html</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/privacy.html"/>
+    <loc>https://moneyleft.it/de/nutzungsbedingungen.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/nutzungsbedingungen.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/termini.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/termini.html"/>
+    <lastmod>2026-09-22</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/en/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/nutzungsbedingungen.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/termini.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/termini.html"/>
     <lastmod>2026-09-22</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://moneyleft.it/termini.html</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/termini.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/nutzungsbedingungen.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/termini.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/termini.html"/>
     <lastmod>2026-09-22</lastmod>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://moneyleft.it/en/terms.html</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/termini.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/termini.html"/>
+    <loc>https://moneyleft.it/de/hilfe.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/hilfe.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/support.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/assistenza.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/assistenza.html"/>
     <lastmod>2026-09-22</lastmod>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/en/support.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/hilfe.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/support.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/assistenza.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/assistenza.html"/>
+    <lastmod>2026-09-22</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/assistenza.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/hilfe.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/support.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/assistenza.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/assistenza.html"/>
+    <lastmod>2026-09-22</lastmod>
+    <priority>0.6</priority>
   </url>
 </urlset>
