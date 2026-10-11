@@ -60,58 +60,58 @@
 <body>
 <div class="wrap">
 
-  <nav class="top"><a class="indietro" href="./">&larr; MoneyLeft</a><a href="assistenza.html">Assistenza</a></nav>
+  <nav class="top"><a class="indietro" href="./">&larr; MoneyLeft</a><a id="l-aiuto" href="assistenza.html" data-t="aiuto">Assistenza</a></nav>
 
   <header>
     <img class="logo" src="img/icona-180.png" alt="MoneyLeft" width="88" height="88">
-    <h1>Nuova password</h1>
-    <p class="sub">Account di sincronizzazione MoneyLeft</p>
+    <h1 data-t="titolo">Nuova password</h1>
+    <p class="sub" data-t="sotto">Account di sincronizzazione MoneyLeft</p>
   </header>
 
   <div class="card" id="modulo" hidden>
-    <h2>Scegli la nuova password</h2>
-    <p>Da qui in avanti entrerai in MoneyLeft con questa.</p>
+    <h2 data-t="sceglih">Scegli la nuova password</h2>
+    <p data-t="sceglip">Da qui in avanti entrerai in MoneyLeft con questa.</p>
     <form id="form" novalidate>
-      <label for="p1">Nuova password</label>
+      <label for="p1" data-t="nuova">Nuova password</label>
       <input type="password" id="p1" autocomplete="new-password" required minlength="8" spellcheck="false">
-      <p class="aiuto">Almeno 8 caratteri.</p>
+      <p class="aiuto" data-t="minimo">Almeno 8 caratteri.</p>
 
-      <label for="p2">Ripetila</label>
+      <label for="p2" data-t="ripeti">Ripetila</label>
       <input type="password" id="p2" autocomplete="new-password" required minlength="8" spellcheck="false">
 
-      <button type="submit" id="invia">Salva la nuova password</button>
+      <button type="submit" id="invia" data-t="salva">Salva la nuova password</button>
       <p class="esito" id="esito" role="status" aria-live="polite"></p>
     </form>
   </div>
 
   <div class="card" id="fatto" hidden>
-    <h2>Password cambiata</h2>
-    <p>Torna in MoneyLeft, apri <strong>Impostazioni &rsaquo; Account</strong> e accedi con la nuova password.</p>
-    <p class="evidenza">I tuoi dati non sono stati toccati: cambia solo il modo di entrare.</p>
+    <h2 data-t="fattoh">Password cambiata</h2>
+    <p data-t="fattop">Torna in MoneyLeft, apri <strong>Impostazioni &rsaquo; Account</strong> e accedi con la nuova password.</p>
+    <p class="evidenza" data-t="fattoe">I tuoi dati non sono stati toccati: cambia solo il modo di entrare.</p>
   </div>
 
   <div class="card" id="confermato" hidden>
-    <h2>Account confermato</h2>
-    <p>Puoi tornare in MoneyLeft e accedere con la tua email e la password che hai scelto.</p>
+    <h2 data-t="confh">Account confermato</h2>
+    <p data-t="confp">Puoi tornare in MoneyLeft e accedere con la tua email e la password che hai scelto.</p>
   </div>
 
   <div class="card" id="altraapp" hidden>
-    <h2>Questo link non &egrave; di MoneyLeft</h2>
-    <p>Arriva da un&rsquo;altra app, e da qui non si pu&ograve; usare: ogni app ha il suo archivio
+    <h2 data-t="altrah">Questo link non &egrave; di MoneyLeft</h2>
+    <p data-t="altrap1">Arriva da un&rsquo;altra app, e da qui non si pu&ograve; usare: ogni app ha il suo archivio
        separato, e la password di una non apre l&rsquo;altra.</p>
-    <p>Riapri l&rsquo;app da cui hai chiesto la reimpostazione e riprova da l&igrave;.</p>
+    <p data-t="altrap2">Riapri l&rsquo;app da cui hai chiesto la reimpostazione e riprova da l&igrave;.</p>
   </div>
 
   <div class="card" id="scaduto" hidden>
-    <h2 id="scaduto-titolo">Questo link non vale piu&rsquo;</h2>
-    <p id="scaduto-testo">I link per reimpostare la password durano un&rsquo;ora e si possono usare una volta sola.</p>
-    <p>Riapri MoneyLeft, vai su <strong>Impostazioni &rsaquo; Account &rsaquo; Accedi</strong> e tocca di nuovo
+    <h2 id="scaduto-titolo" data-t="scadh">Questo link non vale piu&rsquo;</h2>
+    <p id="scaduto-testo" data-t="scadp">I link per reimpostare la password durano un&rsquo;ora e si possono usare una volta sola.</p>
+    <p data-t="scadp2">Riapri MoneyLeft, vai su <strong>Impostazioni &rsaquo; Account &rsaquo; Accedi</strong> e tocca di nuovo
        <strong>Password dimenticata?</strong>: ne arriver&agrave; uno nuovo.</p>
-    <p class="evidenza">Se l&rsquo;email non arriva entro qualche minuto, controlla la posta indesiderata,
+    <p class="evidenza" data-t="scade">Se l&rsquo;email non arriva entro qualche minuto, controlla la posta indesiderata,
        oppure scrivimi: <a href="mailto:matteo.de.min@outlook.it?subject=Recupero%20account%20MoneyLeft">matteo.de.min@outlook.it</a>.</p>
   </div>
 
-  <footer>MoneyLeft &middot; <a href="privacy.html">Privacy</a> &middot; <a href="termini.html">Termini</a></footer>
+  <footer>MoneyLeft &middot; <a id="l-privacy" href="privacy.html">Privacy</a> &middot; <a id="l-termini" href="termini.html" data-t="termini">Termini</a></footer>
 </div>
 
 <script>
@@ -122,6 +122,126 @@
   var CHIAVE = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpdnNxYmFpdWRmZnVsY3doYWluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNTU0MDQsImV4cCI6MjEwMTkzMTQwNH0.CHz7d9RsZbyWEYOKY0eCAkygns9KCkGmQGZs1AUsQx4";
 
   var MINIMO = 8;
+
+  // La lingua del browser, fra le quattro dell'app (11/10/2026: chi
+  // reimposta la password dalla Germania o dalla Spagna non deve trovare
+  // la pagina in italiano). L'italiano e' gia' scritto nella pagina.
+  var LINGUA = (function(){
+    var elenco = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || "it"];
+    for (var i = 0; i < elenco.length; i++) {
+      var l = String(elenco[i]).slice(0, 2).toLowerCase();
+      if (l === "it" || l === "en" || l === "de" || l === "es") return l;
+    }
+    return "en";
+  })();
+
+  var TESTI = {
+    en: {
+      pagina: "New password", aiuto: "Support", termini: "Terms",
+      titolo: "New password", sotto: "MoneyLeft sync account",
+      sceglih: "Choose your new password", sceglip: "From now on you will sign in to MoneyLeft with this one.",
+      nuova: "New password", minimo: "At least 8 characters.", ripeti: "Repeat it", salva: "Save the new password",
+      fattoh: "Password changed",
+      fattop: "Go back to MoneyLeft, open <strong>Settings &rsaquo; Account</strong> and sign in with the new password.",
+      fattoe: "Your data has not been touched: only the way you sign in changes.",
+      confh: "Account confirmed", confp: "You can go back to MoneyLeft and sign in with your email and the password you chose.",
+      altrah: "This link is not from MoneyLeft",
+      altrap1: "It comes from another app and cannot be used here: each app has its own separate archive, and the password of one does not open the other.",
+      altrap2: "Reopen the app where you asked for the reset and try again from there.",
+      scadh: "This link is no longer valid", scadp: "Password reset links last one hour and can be used only once.",
+      scadp2: "Reopen MoneyLeft, go to <strong>Settings &rsaquo; Account &rsaquo; Sign in</strong> and tap <strong>Forgotten your password?</strong> again: a new one will arrive.",
+      scade: "If the email does not arrive within a few minutes, check your junk mail, or write to me: <a href=\"mailto:matteo.de.min@outlook.it?subject=MoneyLeft%20account%20recovery\">matteo.de.min@outlook.it</a>.",
+      eCorta: "The password must have at least %n characters.", eDiverse: "The two passwords do not match.",
+      eLink: "The link is no longer valid: ask for another one from the app.", salvo: "Saving…",
+      eScaduto: "The link has expired or has already been used: ask for another one from the app.",
+      eUguale: "This is the password you already had: choose a different one.",
+      eDebole: "Password too weak: use at least %n characters.",
+      eGenerico: "I couldn't save it. Try again, or write to me at matteo.de.min@outlook.it",
+      eRete: "I can't reach the server. Check your connection and try again.",
+      eServerH: "I can't reach the server", eServerP: "Check your connection and open the link from the email again.",
+      eSenzaH: "You need the link I sent you by email", eSenzaP: "This page only works by opening the link in the reset email.",
+      linkAiuto: "en/support.html", linkPrivacy: "en/privacy.html", linkTermini: "en/terms.html"
+    },
+    de: {
+      pagina: "Neues Passwort", aiuto: "Hilfe", termini: "Nutzungsbedingungen",
+      titolo: "Neues Passwort", sotto: "Sync-Account von MoneyLeft",
+      sceglih: "Wähle dein neues Passwort", sceglip: "Ab jetzt meldest du dich mit diesem Passwort bei MoneyLeft an.",
+      nuova: "Neues Passwort", minimo: "Mindestens 8 Zeichen.", ripeti: "Wiederholen", salva: "Neues Passwort speichern",
+      fattoh: "Passwort geändert",
+      fattop: "Geh zurück zu MoneyLeft, öffne <strong>Einstellungen &rsaquo; Account</strong> und melde dich mit dem neuen Passwort an.",
+      fattoe: "Deine Daten wurden nicht angerührt: Nur die Art, dich anzumelden, ändert sich.",
+      confh: "Account bestätigt", confp: "Du kannst zu MoneyLeft zurückkehren und dich mit deiner E-Mail und dem gewählten Passwort anmelden.",
+      altrah: "Dieser Link ist nicht von MoneyLeft",
+      altrap1: "Er stammt aus einer anderen App und kann hier nicht verwendet werden: Jede App hat ihr eigenes Archiv, und das Passwort der einen öffnet die andere nicht.",
+      altrap2: "Öffne die App, in der du das Zurücksetzen angefordert hast, und versuche es dort erneut.",
+      scadh: "Dieser Link gilt nicht mehr", scadp: "Links zum Zurücksetzen des Passworts gelten eine Stunde und nur einmal.",
+      scadp2: "Öffne MoneyLeft, geh zu <strong>Einstellungen &rsaquo; Account &rsaquo; Anmelden</strong> und tippe erneut auf <strong>Passwort vergessen?</strong>: Du bekommst einen neuen.",
+      scade: "Wenn die E-Mail nicht innerhalb weniger Minuten ankommt, sieh im Spam-Ordner nach oder schreib mir: <a href=\"mailto:matteo.de.min@outlook.it?subject=MoneyLeft%20Account%20wiederherstellen\">matteo.de.min@outlook.it</a>.",
+      eCorta: "Das Passwort muss mindestens %n Zeichen haben.", eDiverse: "Die beiden Passwörter stimmen nicht überein.",
+      eLink: "Der Link gilt nicht mehr: Fordere in der App einen neuen an.", salvo: "Speichern…",
+      eScaduto: "Der Link ist abgelaufen oder wurde schon benutzt: Fordere in der App einen neuen an.",
+      eUguale: "Das ist dein bisheriges Passwort: Wähle ein anderes.",
+      eDebole: "Passwort zu schwach: Verwende mindestens %n Zeichen.",
+      eGenerico: "Ich konnte es nicht speichern. Versuche es erneut oder schreib mir an matteo.de.min@outlook.it",
+      eRete: "Der Server ist nicht erreichbar. Prüfe deine Verbindung und versuche es erneut.",
+      eServerH: "Der Server ist nicht erreichbar", eServerP: "Prüfe deine Verbindung und öffne den Link aus der E-Mail erneut.",
+      eSenzaH: "Du brauchst den Link aus meiner E-Mail", eSenzaP: "Diese Seite funktioniert nur über den Link in der E-Mail zum Zurücksetzen.",
+      linkAiuto: "de/hilfe.html", linkPrivacy: "de/datenschutz.html", linkTermini: "de/nutzungsbedingungen.html"
+    },
+    es: {
+      pagina: "Nueva contraseña", aiuto: "Ayuda", termini: "Términos",
+      titolo: "Nueva contraseña", sotto: "Cuenta de sincronización de MoneyLeft",
+      sceglih: "Elige tu nueva contraseña", sceglip: "A partir de ahora entrarás en MoneyLeft con esta.",
+      nuova: "Nueva contraseña", minimo: "Al menos 8 caracteres.", ripeti: "Repítela", salva: "Guardar la nueva contraseña",
+      fattoh: "Contraseña cambiada",
+      fattop: "Vuelve a MoneyLeft, abre <strong>Ajustes &rsaquo; Cuenta</strong> y accede con la nueva contraseña.",
+      fattoe: "Tus datos no se han tocado: solo cambia la forma de entrar.",
+      confh: "Cuenta confirmada", confp: "Puedes volver a MoneyLeft y acceder con tu correo y la contraseña que elegiste.",
+      altrah: "Este enlace no es de MoneyLeft",
+      altrap1: "Viene de otra app y aquí no se puede usar: cada app tiene su propio archivo separado, y la contraseña de una no abre la otra.",
+      altrap2: "Vuelve a abrir la app desde la que pediste el cambio e inténtalo desde allí.",
+      scadh: "Este enlace ya no es válido", scadp: "Los enlaces para restablecer la contraseña duran una hora y solo se pueden usar una vez.",
+      scadp2: "Abre MoneyLeft, ve a <strong>Ajustes &rsaquo; Cuenta &rsaquo; Acceder</strong> y toca de nuevo <strong>¿Has olvidado la contraseña?</strong>: te llegará uno nuevo.",
+      scade: "Si el correo no llega en unos minutos, revisa el correo no deseado o escríbeme: <a href=\"mailto:matteo.de.min@outlook.it?subject=Recuperar%20cuenta%20MoneyLeft\">matteo.de.min@outlook.it</a>.",
+      eCorta: "La contraseña debe tener al menos %n caracteres.", eDiverse: "Las dos contraseñas no coinciden.",
+      eLink: "El enlace ya no es válido: pide otro desde la app.", salvo: "Guardando…",
+      eScaduto: "El enlace ha caducado o ya se ha usado: pide otro desde la app.",
+      eUguale: "Esta es la contraseña que ya tenías: elige otra.",
+      eDebole: "Contraseña demasiado débil: usa al menos %n caracteres.",
+      eGenerico: "No he podido guardarla. Inténtalo de nuevo o escríbeme a matteo.de.min@outlook.it",
+      eRete: "No consigo contactar con el servidor. Comprueba la conexión e inténtalo de nuevo.",
+      eServerH: "No consigo contactar con el servidor", eServerP: "Comprueba la conexión y vuelve a abrir el enlace del correo.",
+      eSenzaH: "Necesitas el enlace que te envié por correo", eSenzaP: "Esta página solo funciona abriendo el enlace del correo de restablecimiento.",
+      linkAiuto: "es/ayuda.html", linkPrivacy: "es/privacidad.html", linkTermini: "es/terminos.html"
+    },
+    it: {
+      eCorta: "La password deve avere almeno %n caratteri.", eDiverse: "Le due password non coincidono.",
+      eLink: "Il link non e’ piu’ valido: chiedine un altro dall’app.", salvo: "Salvo…",
+      eScaduto: "Il link e’ scaduto o gia’ usato: chiedine un altro dall’app.",
+      eUguale: "Questa e’ la password che avevi gia’: scegline una diversa.",
+      eDebole: "Password troppo debole: usa almeno %n caratteri.",
+      eGenerico: "Non sono riuscito a salvarla. Riprova, o scrivimi a matteo.de.min@outlook.it",
+      eRete: "Non riesco a contattare il server. Controlla la connessione e riprova.",
+      eServerH: "Non riesco a contattare il server", eServerP: "Controlla la connessione e riprova ad aprire il link dall'email.",
+      eSenzaH: "Serve il link che ti ho mandato via email", eSenzaP: "Questa pagina funziona solo aprendo il link contenuto nell'email di reimpostazione."
+    }
+  };
+
+  function t(chiave){ return String(TESTI[LINGUA][chiave]).replace("%n", MINIMO); }
+
+  if (LINGUA !== "it") {
+    var testi = TESTI[LINGUA];
+    document.documentElement.lang = LINGUA;
+    document.title = testi.pagina + " · MoneyLeft";
+    // I testi sono nostri, non dell'utente: innerHTML serve per <strong> e il link.
+    Array.prototype.forEach.call(document.querySelectorAll("[data-t]"), function(el){
+      var v = testi[el.getAttribute("data-t")];
+      if (v) el.innerHTML = v;
+    });
+    document.getElementById("l-aiuto").href = testi.linkAiuto;
+    document.getElementById("l-privacy").href = testi.linkPrivacy;
+    document.getElementById("l-termini").href = testi.linkTermini;
+  }
 
   function mostra(id){ document.getElementById(id).hidden = false; }
   function leggi(testo){
@@ -199,13 +319,11 @@
         fallito(null, null);
       }
     }).catch(function(){
-      fallito("Non riesco a contattare il server",
-              "Controlla la connessione e riprova ad aprire il link dall'email.");
+      fallito(t("eServerH"), t("eServerP"));
     });
 
   } else {
-    fallito("Serve il link che ti ho mandato via email",
-            "Questa pagina funziona solo aprendo il link contenuto nell'email di reimpostazione.");
+    fallito(t("eSenzaH"), t("eSenzaP"));
   }
 
   document.getElementById("form").addEventListener("submit", function(evento){
@@ -216,13 +334,13 @@
     var bottone = document.getElementById("invia");
 
     esito.className = "esito male";
-    if (p1.length < MINIMO) { esito.textContent = "La password deve avere almeno " + MINIMO + " caratteri."; return; }
-    if (p1 !== p2) { esito.textContent = "Le due password non coincidono."; return; }
-    if (!accesso) { esito.textContent = "Il link non e’ piu’ valido: chiedine un altro dall’app."; return; }
+    if (p1.length < MINIMO) { esito.textContent = t("eCorta"); return; }
+    if (p1 !== p2) { esito.textContent = t("eDiverse"); return; }
+    if (!accesso) { esito.textContent = t("eLink"); return; }
 
     bottone.disabled = true;
     esito.className = "esito";
-    esito.textContent = "Salvo…";
+    esito.textContent = t("salvo");
 
     fetch(URL_BASE + "/auth/v1/user", {
       method: "PUT",
@@ -243,19 +361,19 @@
         esito.className = "esito male";
         var m = corpo.msg || corpo.error_description || corpo.message || "";
         if (/expired|invalid/i.test(m)) {
-          esito.textContent = "Il link e’ scaduto o gia’ usato: chiedine un altro dall’app.";
+          esito.textContent = t("eScaduto");
         } else if (/should be different|same as the old/i.test(m)) {
-          esito.textContent = "Questa e’ la password che avevi gia’: scegline una diversa.";
+          esito.textContent = t("eUguale");
         } else if (/at least|weak|short/i.test(m)) {
-          esito.textContent = "Password troppo debole: usa almeno " + MINIMO + " caratteri.";
+          esito.textContent = t("eDebole");
         } else {
-          esito.textContent = "Non sono riuscito a salvarla. Riprova, o scrivimi a matteo.de.min@outlook.it";
+          esito.textContent = t("eGenerico");
         }
       });
     }).catch(function(){
       bottone.disabled = false;
       esito.className = "esito male";
-      esito.textContent = "Non riesco a contattare il server. Controlla la connessione e riprova.";
+      esito.textContent = t("eRete");
     });
   });
 })();
