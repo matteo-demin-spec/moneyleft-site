@@ -163,36 +163,281 @@
   </url>
   <url>
     <loc>https://moneyleft.it/guida/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/en/guides/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/de/ratgeber/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/es/guias/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/"/>
     <lastmod>2026-10-15</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moneyleft.it/guida/quanto-posso-spendere-al-giorno/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/quanto-posso-spendere-al-giorno/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-much-can-i-spend-per-day/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/wie-viel-kann-ich-pro-tag-ausgeben/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuanto-puedo-gastar-al-dia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/quanto-posso-spendere-al-giorno/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/en/guides/how-much-can-i-spend-per-day/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/quanto-posso-spendere-al-giorno/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-much-can-i-spend-per-day/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/wie-viel-kann-ich-pro-tag-ausgeben/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuanto-puedo-gastar-al-dia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/quanto-posso-spendere-al-giorno/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/de/ratgeber/wie-viel-kann-ich-pro-tag-ausgeben/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/quanto-posso-spendere-al-giorno/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-much-can-i-spend-per-day/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/wie-viel-kann-ich-pro-tag-ausgeben/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuanto-puedo-gastar-al-dia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/quanto-posso-spendere-al-giorno/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/es/guias/cuanto-puedo-gastar-al-dia/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/quanto-posso-spendere-al-giorno/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-much-can-i-spend-per-day/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/wie-viel-kann-ich-pro-tag-ausgeben/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuanto-puedo-gastar-al-dia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/quanto-posso-spendere-al-giorno/"/>
     <lastmod>2026-10-15</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://moneyleft.it/guida/come-fare-un-budget-giornaliero/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/come-fare-un-budget-giornaliero/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-to-make-a-daily-budget/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/tagesbudget-vom-gehalt/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/como-hacer-un-presupuesto-diario/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/come-fare-un-budget-giornaliero/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/en/guides/how-to-make-a-daily-budget/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/come-fare-un-budget-giornaliero/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-to-make-a-daily-budget/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/tagesbudget-vom-gehalt/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/como-hacer-un-presupuesto-diario/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/come-fare-un-budget-giornaliero/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/de/ratgeber/tagesbudget-vom-gehalt/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/come-fare-un-budget-giornaliero/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-to-make-a-daily-budget/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/tagesbudget-vom-gehalt/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/como-hacer-un-presupuesto-diario/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/come-fare-un-budget-giornaliero/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/es/guias/como-hacer-un-presupuesto-diario/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/come-fare-un-budget-giornaliero/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-to-make-a-daily-budget/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/tagesbudget-vom-gehalt/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/como-hacer-un-presupuesto-diario/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/come-fare-un-budget-giornaliero/"/>
     <lastmod>2026-10-15</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://moneyleft.it/guida/rate-e-abbonamenti-nel-budget/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/rate-e-abbonamenti-nel-budget/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/instalments-and-subscriptions-in-your-budget/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/raten-und-abos-im-budget/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuotas-y-suscripciones-en-el-presupuesto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/rate-e-abbonamenti-nel-budget/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/en/guides/instalments-and-subscriptions-in-your-budget/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/rate-e-abbonamenti-nel-budget/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/instalments-and-subscriptions-in-your-budget/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/raten-und-abos-im-budget/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuotas-y-suscripciones-en-el-presupuesto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/rate-e-abbonamenti-nel-budget/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/de/ratgeber/raten-und-abos-im-budget/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/rate-e-abbonamenti-nel-budget/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/instalments-and-subscriptions-in-your-budget/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/raten-und-abos-im-budget/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuotas-y-suscripciones-en-el-presupuesto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/rate-e-abbonamenti-nel-budget/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/es/guias/cuotas-y-suscripciones-en-el-presupuesto/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/rate-e-abbonamenti-nel-budget/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/instalments-and-subscriptions-in-your-budget/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/raten-und-abos-im-budget/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuotas-y-suscripciones-en-el-presupuesto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/rate-e-abbonamenti-nel-budget/"/>
     <lastmod>2026-10-15</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://moneyleft.it/guida/regola-50-30-20/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/regola-50-30-20/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/50-30-20-rule/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/50-30-20-regel/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/regla-50-30-20/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/regola-50-30-20/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/en/guides/50-30-20-rule/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/regola-50-30-20/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/50-30-20-rule/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/50-30-20-regel/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/regla-50-30-20/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/regola-50-30-20/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/de/ratgeber/50-30-20-regel/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/regola-50-30-20/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/50-30-20-rule/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/50-30-20-regel/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/regla-50-30-20/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/regola-50-30-20/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/es/guias/regla-50-30-20/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/regola-50-30-20/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/50-30-20-rule/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/50-30-20-regel/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/regla-50-30-20/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/regola-50-30-20/"/>
     <lastmod>2026-10-15</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://moneyleft.it/guida/quanto-mi-resta-a-fine-mese/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/quanto-mi-resta-a-fine-mese/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-much-is-left-at-month-end/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/was-bleibt-am-monatsende/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuanto-me-queda-a-fin-de-mes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/quanto-mi-resta-a-fine-mese/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/en/guides/how-much-is-left-at-month-end/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/quanto-mi-resta-a-fine-mese/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-much-is-left-at-month-end/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/was-bleibt-am-monatsende/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuanto-me-queda-a-fin-de-mes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/quanto-mi-resta-a-fine-mese/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/de/ratgeber/was-bleibt-am-monatsende/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/quanto-mi-resta-a-fine-mese/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-much-is-left-at-month-end/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/was-bleibt-am-monatsende/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuanto-me-queda-a-fin-de-mes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/quanto-mi-resta-a-fine-mese/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/es/guias/cuanto-me-queda-a-fin-de-mes/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/quanto-mi-resta-a-fine-mese/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/how-much-is-left-at-month-end/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/was-bleibt-am-monatsende/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/cuanto-me-queda-a-fin-de-mes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/quanto-mi-resta-a-fine-mese/"/>
     <lastmod>2026-10-15</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://moneyleft.it/guida/chi-la-fa-e-come-calcola/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/chi-la-fa-e-come-calcola/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/who-makes-it-and-how-it-calculates/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/wer-dahintersteckt-und-wie-gerechnet-wird/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/quien-la-hace-y-como-calcula/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/chi-la-fa-e-come-calcola/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/en/guides/who-makes-it-and-how-it-calculates/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/chi-la-fa-e-come-calcola/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/who-makes-it-and-how-it-calculates/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/wer-dahintersteckt-und-wie-gerechnet-wird/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/quien-la-hace-y-como-calcula/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/chi-la-fa-e-come-calcola/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/de/ratgeber/wer-dahintersteckt-und-wie-gerechnet-wird/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/chi-la-fa-e-come-calcola/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/who-makes-it-and-how-it-calculates/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/wer-dahintersteckt-und-wie-gerechnet-wird/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/quien-la-hace-y-como-calcula/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/chi-la-fa-e-come-calcola/"/>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://moneyleft.it/es/guias/quien-la-hace-y-como-calcula/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://moneyleft.it/guida/chi-la-fa-e-come-calcola/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://moneyleft.it/en/guides/who-makes-it-and-how-it-calculates/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://moneyleft.it/de/ratgeber/wer-dahintersteckt-und-wie-gerechnet-wird/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://moneyleft.it/es/guias/quien-la-hace-y-como-calcula/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://moneyleft.it/guida/chi-la-fa-e-come-calcola/"/>
     <lastmod>2026-10-15</lastmod>
     <priority>0.4</priority>
   </url>
