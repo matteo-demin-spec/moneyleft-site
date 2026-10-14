@@ -107,6 +107,13 @@
     text-transform:uppercase; padding:9px 16px;
   }
 
+  .annuncio a{ color:inherit; text-decoration:none; }
+  .annuncio a::after{ content:" \2192"; }
+  .annuncio a:hover{ color:#fff; }
+  #novita .elenco li b{ display:block; color:#fff; font-weight:700; }
+  #novita .carta h3{ margin-bottom:4px; }
+  #novita .azione{ text-align:center; margin-top:34px; }
+
   header.barra{
     position:sticky; top:0; z-index:50;
     backdrop-filter:saturate(180%) blur(18px);
@@ -575,7 +582,7 @@
 <body>
 <script>if("IntersectionObserver" in window){document.documentElement.className+=" js";}</script>
 
-<div class="annuncio">Auf Italienisch, Englisch, Deutsch und Spanisch &middot; f&uuml;r iPhone, iPad, Mac und Apple Vision Pro &middot; im App Store</div>
+<div class="annuncio"><a href="#novita" data-momento="banner">Neu · MoneyLeft 1.1 kommt: vier Sprachen, iPad und Mac, Sicherheitskopie für alle</a></div>
 
 <header class="barra" id="barra">
   <div class="wrap">
@@ -670,6 +677,31 @@
       <img src="../schermate/de/store-10.jpg" alt="Auf iPhone, iPad und Mac" loading="lazy" width="368" height="800">
     </div>
 </div>
+
+<section id="novita">
+  <div class="wrap centro compare">
+    <span class="etichetta" data-momento="etichetta">Demnächst · Version 1.1</span>
+    <h2>Neu in 1.1</h2>
+    <p class="sottotitolo">Dieselben, die dir die App nach dem Update zeigt. Das Update ist für alle, die MoneyLeft schon haben, kostenlos.</p>
+  </div>
+  <div class="wrap">
+    <div class="griglia">
+      <div class="carta compare">
+        <h3>Jeden Tag einfacher</h3>
+        <ul class="elenco"><li><b>Deine Daten sicher in deinem Account</b>Eine Sicherheitskopie für alle, auch ohne Pro: Wenn du dein Telefon wechselst oder verlierst, meldest du dich wieder an und findest alles wieder. In den Einstellungen lässt sie sich ausschalten.</li><li><b>Eine Ausgabe wird zur Rate oder zum Abo</b>Aus der neuen Buchung, schon ausgefüllt.</li><li><b>„Was du heute ausgeben kannst“ ist genauer</b>Daneben siehst du, was dir morgen bleibt, und der Simulator berücksichtigt, was du heute nicht ausgibst.</li><li><b>Flüssiger</b>Der Wechsel zwischen den Ansichten und die Leiste unten, leichter.</li></ul>
+      </div>
+      <div class="carta compare">
+        <h3>Mehr Kontrolle</h3>
+        <ul class="elenco"><li><b>Überträge, die sich von selbst wiederholen</b>Zwischen deinen Konten, so oft du willst.</li><li><b>Mehrere Währungen</b>Ausgaben im Ausland, zum Tageskurs.</li><li><b>Dem Entwickler schreiben</b>Aus den Einstellungen, und die Antwort kommt in der App an.</li><li><b>Du siehst, wie viel du von der Gratis-Version genutzt hast</b>Ein Zähler für Raten, Abos und Kategorien.</li></ul>
+      </div>
+      <div class="carta compare">
+        <h3>Überall</h3>
+        <ul class="elenco"><li><b>MoneyLeft spricht vier Sprachen</b>Italienisch, Englisch, Deutsch und Spanisch: Es folgt der Sprache deines Telefons.</li><li><b>Auf iPad und Mac im Vollbild</b>Menü an der Seite, Bereiche rechts.</li><li><b>Eine neue Führung</b>Kurz oder ausführlich, auf den echten Bildschirmen.</li><li><b>Einstellungen neu geordnet</b>In Blöcken: Account, Dein Monat, Allgemein, Deine Daten, Hilfe.</li></ul>
+      </div>
+    </div>
+    <div class="azione"><a class="cta" href="https://apps.apple.com/de/app/id6799703830" data-momento="pulsante">Bald im App Store</a></div>
+  </div>
+</section>
 
 <section class="spot" id="video" aria-labelledby="spot-titolo">
   <div class="wrap spot-griglia">
