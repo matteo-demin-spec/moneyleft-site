@@ -142,19 +142,9 @@
   .lingua .qui{ color:#fff; background:rgba(255,255,255,.14); }
   .barra .cta{ margin-left:8px; }
 
-  .badge-store{
-    display:inline-flex; align-items:center; gap:12px;
-    background:#000; color:#fff; border-radius:14px; padding:10px 20px;
-    font-weight:500; white-space:nowrap; border:1px solid rgba(255,255,255,.14);
-    text-decoration:none;
-  }
-  .badge-store svg{ width:24px; height:24px; fill:#fff; flex:none; }
-  .badge-store .righe{ display:flex; flex-direction:column; line-height:1.15; text-align:left; }
-  .badge-store small{ font-size:.68rem; font-weight:400; opacity:.82; }
-  .badge-store b{ font-size:1rem; font-weight:700; }
-  .barra .badge-store{ margin-left:8px; padding:8px 16px; }
-  .barra .badge-store svg{ width:20px; height:20px; }
-  .barra .badge-store b{ font-size:.9rem; }
+  .badge-store{ display:inline-flex; flex:none; line-height:0; }
+  .badge-store img{ display:block; height:40px; width:auto; }
+  .barra .badge-store{ margin-left:10px; }
 
   .cta{
     display:inline-flex; align-items:center; gap:9px;
@@ -539,8 +529,7 @@
     .barra .marchio>span{ display:none; }
     .barra .lingua{ margin-left:auto; gap:0; padding:2px; font-size:.68rem; }
     .barra .lingua a, .barra .lingua .qui{ padding:3px 6px; }
-    .barra .badge-store{ margin-left:0; padding:7px 12px; }
-    .barra .badge-store small{ display:none; }
+    .barra .badge-store{ margin-left:0; }
     .griglia{ grid-template-columns:1fr; }
     .prezzi{ grid-template-columns:1fr; }
     .fatti .wrap{ grid-template-columns:1fr; }
@@ -598,7 +587,7 @@
       <a href="hilfe">Hilfe</a>
     </nav>
     <span class="lingua"><a href="../" hreflang="it" lang="it" aria-label="Italiano">IT</a><span class="qui" aria-current="true" aria-label="Deutsch">DE</span><a href="../en/" hreflang="en" lang="en" aria-label="English">EN</a><a href="../es/" hreflang="es" lang="es" aria-label="Español">ES</a></span>
-    <a class="badge-store" href="https://apps.apple.com/de/app/id6799703830"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 0 184.8 0 273.5c0 26.2 4.8 53.3 14.4 81.2 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.6zM256.6 93c31-36.8 28.2-70.3 27.3-82.4-27.4 1.6-59.1 18.7-77.2 39.7-19.9 22.6-31.6 50.5-29.1 81.9 29.6 2.3 56.7-12.9 79-39.2z"/></svg><span class="righe"><small>Laden im</small><b>App Store</b></span></a>
+    <a class="badge-store" href="https://apps.apple.com/de/app/id6799703830"><img src="../img/badge-app-store-de.svg" alt="Laden im App Store" width="120" height="40"></a>
   </div>
 </header>
 
@@ -618,7 +607,7 @@
         Der Monat der Bank beginnt am Ersten. Deiner beginnt an dem Tag, an dem du bezahlt wirst. MoneyLeft rechnet alles auf <strong>deinen</strong> Zyklus: was du schon ausgegeben hast, was gleich abgebucht wird, und was dir bis zum n&auml;chsten Zahltag wirklich bleibt.
       </p>
       <div class="bottoni">
-        <a class="badge-store" href="https://apps.apple.com/de/app/id6799703830"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 0 184.8 0 273.5c0 26.2 4.8 53.3 14.4 81.2 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.6zM256.6 93c31-36.8 28.2-70.3 27.3-82.4-27.4 1.6-59.1 18.7-77.2 39.7-19.9 22.6-31.6 50.5-29.1 81.9 29.6 2.3 56.7-12.9 79-39.2z"/></svg><span class="righe"><small>Laden im</small><b>App Store</b></span></a>
+        <a class="badge-store" href="https://apps.apple.com/de/app/id6799703830"><img src="../img/badge-app-store-de.svg" alt="Laden im App Store" width="120" height="40"></a>
         <a class="cta fantasma" href="#app">Sieh dir an, wie sie aussieht</a>
       </div>
       <p class="nota-cta">Keine Verbindung zum Bankkonto. Zum Benutzen brauchst du ein kostenloses Konto, für die Sicherheitskopie deiner Daten.<br>
@@ -992,7 +981,7 @@
     <p class="sottotitolo centro" style="margin:0 auto 26px;">
       MoneyLeft sagt dir, was dir jetzt bleibt &mdash; und was dir in einem Monat bleiben wird.
     </p>
-    <a class="badge-store" href="https://apps.apple.com/de/app/id6799703830"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 0 184.8 0 273.5c0 26.2 4.8 53.3 14.4 81.2 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.6zM256.6 93c31-36.8 28.2-70.3 27.3-82.4-27.4 1.6-59.1 18.7-77.2 39.7-19.9 22.6-31.6 50.5-29.1 81.9 29.6 2.3 56.7-12.9 79-39.2z"/></svg><span class="righe"><small>Laden im</small><b>App Store</b></span></a>
+    <a class="badge-store" href="https://apps.apple.com/de/app/id6799703830"><img src="../img/badge-app-store-de.svg" alt="Laden im App Store" width="120" height="40"></a>
   </div>
 </section>
 
@@ -1010,9 +999,9 @@
       <a href="mailto:matteo.de.min@outlook.it?subject=MoneyLeft">Schreib uns</a>
     </nav>
     <div class="fine">
-      MoneyLeft wird entwickelt von <strong>Matteo De Min</strong> &mdash; Frazione Sant&rsquo;Antonio 148/4, 10081 Castellamonte (TO), Italien &mdash; USt-IdNr. IT13334350017 &mdash;
+      MoneyLeft wird entwickelt von <strong>Matteo De Min</strong> &mdash; Frazione Sant&rsquo;Antonio 148/4, 10081 Castellamonte (TO), Italien &mdash; USt-IdNr. IT13334350017 &mdash; REA TO-1355715 &mdash;
       <a href="mailto:matteo.de.min@outlook.it?subject=MoneyLeft">matteo.de.min@outlook.it</a><br>
-      App Store ist eine Marke von Apple Inc.
+      Apple, das Apple Logo, App Store, Apple Pay, Apple Vision Pro, Face ID, Touch ID, iPhone, iPad, Mac, macOS und visionOS sind Marken der Apple Inc., die in den USA und weiteren Ländern und Regionen eingetragen sind. IOS ist eine Marke oder eingetragene Marke von Cisco in den USA und weiteren Ländern und wird unter Lizenz verwendet.<br>Die Schrift Manrope steht unter der <a href="../font/OFL.txt">SIL Open Font License 1.1</a>.
     </div>
   </div>
 </footer>
